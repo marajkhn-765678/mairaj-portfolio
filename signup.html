@@ -22,21 +22,18 @@
   h1 { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 6px; }
   .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 32px; }
   .subtitle a { color: var(--accent); text-decoration: none; font-weight: 600; }
-  .subtitle a:hover { text-decoration: underline; }
   .field { margin-bottom: 18px; }
   label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; font-family: 'Space Mono', monospace; }
   input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 13px 16px; font-size: 15px; font-family: 'Syne', sans-serif; color: var(--text); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
   input:focus { border-color: rgba(124,111,255,0.5); box-shadow: 0 0 0 3px rgba(124,111,255,0.08); }
-  input.error { border-color: var(--danger) !important; }
-  input.success { border-color: var(--success) !important; }
   .error-msg { font-size: 12px; color: var(--danger); margin-top: 6px; font-family: 'Space Mono', monospace; display: none; }
   .error-msg.show { display: block; }
   .strength-bar { height: 3px; background: var(--border); border-radius: 3px; margin-top: 8px; overflow: hidden; }
   .strength-fill { height: 100%; border-radius: 3px; width: 0; transition: width 0.3s, background 0.3s; }
   .strength-text { font-size: 11px; color: var(--muted); margin-top: 4px; font-family: 'Space Mono', monospace; }
-  .btn { width: 100%; background: var(--accent); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; padding: 14px; border-radius: 10px; border: none; cursor: pointer; margin-top: 8px; transition: transform 0.2s, box-shadow 0.2s; letter-spacing: 0.3px; }
+  .btn { width: 100%; background: var(--accent); color: #000; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; padding: 14px; border-radius: 10px; border: none; cursor: pointer; margin-top: 8px; transition: transform 0.2s, box-shadow 0.2s; }
   .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,229,160,0.25); }
-  .btn:active { transform: scale(0.98); }
+  .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
   .divider { display: flex; align-items: center; gap: 12px; margin: 24px 0; color: var(--muted); font-size: 12px; font-family: 'Space Mono', monospace; }
   .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
   .toast { position: fixed; top: 24px; right: 24px; padding: 14px 20px; border-radius: 10px; font-size: 14px; font-weight: 600; z-index: 999; transform: translateX(120%); transition: transform 0.3s ease; font-family: 'Space Mono', monospace; }
@@ -60,70 +57,59 @@
   <div class="field">
     <label data-en="Full Name" data-ru="Poora Naam">Poora Naam</label>
     <input type="text" id="name" placeholder="Jaise: Ali Hassan" autocomplete="off">
-    <p class="error-msg" id="name-err"
-       data-en="Name must be at least 3 characters"
-       data-ru="Naam kam se kam 3 characters ka hona chahiye">
-      Naam kam se kam 3 characters ka hona chahiye
-    </p>
+    <p class="error-msg" id="name-err" data-en="Name must be at least 3 characters" data-ru="Naam kam se kam 3 characters ka hona chahiye">Naam kam se kam 3 characters ka hona chahiye</p>
   </div>
 
   <div class="field">
     <label data-en="Gmail Address" data-ru="Gmail Address">Gmail Address</label>
     <input type="email" id="email" placeholder="tumhara@gmail.com" autocomplete="off">
-    <p class="error-msg" id="email-err"
-       data-en="Write a valid Gmail address (@ required)"
-       data-ru="Sahi Gmail address likho (@ zaroori hai)">
-      Sahi Gmail address likho (@ zaroori hai)
-    </p>
+    <p class="error-msg" id="email-err" data-en="Write a valid Gmail address" data-ru="Sahi Gmail address likho">Sahi Gmail address likho</p>
   </div>
 
   <div class="field">
     <label data-en="Password" data-ru="Password">Password</label>
-    <input type="password" id="password"
-      data-en-placeholder="Write a strong password"
-      data-ru-placeholder="Strong password likho"
-      placeholder="Strong password likho"
-      oninput="checkStrength(this.value)">
+    <input type="password" id="password" placeholder="Strong password likho" oninput="checkStrength(this.value)">
     <div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
-    <p class="strength-text" id="strength-text"
-       data-en="Password strength will show here"
-       data-ru="Password ki strength yahan dikhegi">
-      Password ki strength yahan dikhegi
-    </p>
-    <p class="error-msg" id="pass-err"
-       data-en="Password must be at least 6 characters"
-       data-ru="Password kam se kam 6 characters ka hona chahiye">
-      Password kam se kam 6 characters ka hona chahiye
-    </p>
+    <p class="strength-text" id="strength-text" data-en="Password strength will show here" data-ru="Password ki strength yahan dikhegi">Password ki strength yahan dikhegi</p>
+    <p class="error-msg" id="pass-err" data-en="Password must be at least 6 characters" data-ru="Password kam se kam 6 characters ka hona chahiye">Password kam se kam 6 characters ka hona chahiye</p>
   </div>
 
   <div class="field">
     <label data-en="Confirm Password" data-ru="Password Confirm Karo">Password Confirm Karo</label>
-    <input type="password" id="confirm"
-      data-en-placeholder="Write the same password again"
-      data-ru-placeholder="Wahi password dobara likho"
-      placeholder="Wahi password dobara likho">
-    <p class="error-msg" id="confirm-err"
-       data-en="Both passwords don't match!"
-       data-ru="Dono passwords match nahi kar rahe!">
-      Dono passwords match nahi kar rahe!
-    </p>
+    <input type="password" id="confirm" placeholder="Wahi password dobara likho">
+    <p class="error-msg" id="confirm-err" data-en="Both passwords don't match!" data-ru="Dono passwords match nahi kar rahe!">Dono passwords match nahi kar rahe!</p>
   </div>
 
-  <button class="btn" onclick="doSignup()"
-    data-en="Create Account →"
-    data-ru="Account Banao →">Account Banao →</button>
+  <button class="btn" onclick="doSignup()" id="signupBtn" data-en="Create Account →" data-ru="Account Banao →">Account Banao →</button>
 
   <div class="divider" data-en="or" data-ru="ya">ya</div>
   <p style="text-align:center; font-size:13px; color:var(--muted)">
     <span data-en="Already have account?" data-ru="Already account hai?">Already account hai?</span>
-    <a href="login.html" style="color:var(--accent); font-weight:700; text-decoration:none"
-       data-en="Login →" data-ru="Login karo →">Login karo →</a>
+    <a href="login.html" style="color:var(--accent); font-weight:700; text-decoration:none" data-en="Login →" data-ru="Login karo →">Login karo →</a>
   </p>
 </div>
 
-<script>
-  function checkStrength(val) {
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+  // ✅ Aapki Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDTVyksPVDRfU9VvBa0r5Wvke6WSGUN3jU",
+    authDomain: "mairaj-portfolio.firebaseapp.com",
+    projectId: "mairaj-portfolio",
+    storageBucket: "mairaj-portfolio.firebasestorage.app",
+    messagingSenderId: "687007303119",
+    appId: "1:687007303119:web:9fb778c743ba4c78207eba",
+    measurementId: "G-F9PGE0KFS5"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Functions global banao
+  window.checkStrength = function(val) {
     const lang = localStorage.getItem('siteLang') || 'ru';
     const fill = document.getElementById('strength-fill');
     const text = document.getElementById('strength-text');
@@ -133,80 +119,78 @@
     if (/[A-Z]/.test(val)) score++;
     if (/[0-9]/.test(val)) score++;
     if (/[^A-Za-z0-9]/.test(val)) score++;
-
     const levels = lang === 'en'
-      ? [
-          { w: '0%', c: 'transparent', t: 'Enter a password' },
-          { w: '25%', c: '#ff5c5c', t: '⚠️ Very Weak' },
-          { w: '50%', c: '#ffaa00', t: '😐 Okay' },
-          { w: '75%', c: '#7c6fff', t: '👍 Good' },
-          { w: '90%', c: '#00e5a0', t: '💪 Strong!' },
-          { w: '100%', c: '#00e5a0', t: '🔥 Very Strong!' },
-        ]
-      : [
-          { w: '0%', c: 'transparent', t: 'Password likho' },
-          { w: '25%', c: '#ff5c5c', t: '⚠️ Bohot weak' },
-          { w: '50%', c: '#ffaa00', t: '😐 Theek hai' },
-          { w: '75%', c: '#7c6fff', t: '👍 Accha hai' },
-          { w: '90%', c: '#00e5a0', t: '💪 Strong!' },
-          { w: '100%', c: '#00e5a0', t: '🔥 Bohot Strong!' },
-        ];
-
+      ? [{ w:'0%',c:'transparent',t:'Enter a password'},{ w:'25%',c:'#ff5c5c',t:'⚠️ Very Weak'},{ w:'50%',c:'#ffaa00',t:'😐 Okay'},{ w:'75%',c:'#7c6fff',t:'👍 Good'},{ w:'90%',c:'#00e5a0',t:'💪 Strong!'},{ w:'100%',c:'#00e5a0',t:'🔥 Very Strong!'}]
+      : [{ w:'0%',c:'transparent',t:'Password likho'},{ w:'25%',c:'#ff5c5c',t:'⚠️ Bohot weak'},{ w:'50%',c:'#ffaa00',t:'😐 Theek hai'},{ w:'75%',c:'#7c6fff',t:'👍 Accha hai'},{ w:'90%',c:'#00e5a0',t:'💪 Strong!'},{ w:'100%',c:'#00e5a0',t:'🔥 Bohot Strong!'}];
     const l = levels[score] || levels[0];
-    fill.style.width = l.w;
-    fill.style.background = l.c;
-    text.textContent = l.t;
-    text.style.color = l.c;
-  }
+    fill.style.width = l.w; fill.style.background = l.c;
+    text.textContent = l.t; text.style.color = l.c;
+  };
 
-  function showToast(msg, type) {
+  window.showToast = function(msg, type) {
     const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = 'toast show ' + type;
+    t.textContent = msg; t.className = 'toast show ' + type;
     setTimeout(() => t.className = 'toast', 3000);
-  }
+  };
 
-  function setErr(id, show) {
-    document.getElementById(id).classList.toggle('show', show);
-  }
-
-  function doSignup() {
+  window.doSignup = async function() {
     const lang = localStorage.getItem('siteLang') || 'ru';
     const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
+    const email = document.getElementById('email').value.trim().toLowerCase();
     const pass = document.getElementById('password').value;
     const confirm = document.getElementById('confirm').value;
+    const btn = document.getElementById('signupBtn');
     let valid = true;
 
-    if (name.length < 3) { setErr('name-err', true); valid = false; }
-    else setErr('name-err', false);
-    if (!email.includes('@') || !email.includes('.')) { setErr('email-err', true); valid = false; }
-    else setErr('email-err', false);
-    if (pass.length < 6) { setErr('pass-err', true); valid = false; }
-    else setErr('pass-err', false);
-    if (pass !== confirm) { setErr('confirm-err', true); valid = false; }
-    else setErr('confirm-err', false);
+    document.getElementById('name-err').classList.toggle('show', name.length < 3);
+    if (name.length < 3) valid = false;
+    document.getElementById('email-err').classList.toggle('show', !email.includes('@'));
+    if (!email.includes('@')) valid = false;
+    document.getElementById('pass-err').classList.toggle('show', pass.length < 6);
+    if (pass.length < 6) valid = false;
+    document.getElementById('confirm-err').classList.toggle('show', pass !== confirm);
+    if (pass !== confirm) valid = false;
 
     if (!valid) {
-      showToast(lang === 'en' ? '❌ Fix all errors first!' : '❌ Pehle sari galtiyan theek karo!', 'error-toast');
+      window.showToast(lang === 'en' ? '❌ Fix all errors first!' : '❌ Pehle sari galtiyan theek karo!', 'error-toast');
       return;
     }
 
-    const existing = JSON.parse(localStorage.getItem('devUsers') || '[]');
-    if (existing.find(u => u.email === email)) {
-      showToast(lang === 'en' ? '⚠️ This email is already registered!' : '⚠️ Yeh email already registered hai!', 'error-toast');
-      return;
-    }
+    btn.disabled = true;
+    btn.textContent = lang === 'en' ? 'Creating...' : 'Ban raha hai...';
 
-    existing.push({ name, email, password: pass, createdAt: new Date().toLocaleDateString() });
-    localStorage.setItem('devUsers', JSON.stringify(existing));
-    showToast(lang === 'en' ? '✅ Account created! Going to login...' : '✅ Account ban gaya! Login page pe ja raha hun...', 'success-toast');
-    setTimeout(() => window.location.href = 'login.html', 2000);
-  }
+    try {
+      // Check if user already exists
+      const userRef = doc(db, 'users', email);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        window.showToast(lang === 'en' ? '⚠️ This email is already registered!' : '⚠️ Yeh email already registered hai!', 'error-toast');
+        btn.disabled = false;
+        btn.textContent = lang === 'en' ? 'Create Account →' : 'Account Banao →';
+        return;
+      }
+
+      // Save user to Firebase
+      await setDoc(userRef, {
+        name: name,
+        email: email,
+        password: pass,
+        createdAt: new Date().toISOString()
+      });
+
+      window.showToast(lang === 'en' ? '✅ Account created! Going to login...' : '✅ Account ban gaya! Login page pe ja raha hun...', 'success-toast');
+      setTimeout(() => window.location.href = 'login.html', 2000);
+
+    } catch (error) {
+      console.error(error);
+      window.showToast(lang === 'en' ? '❌ Error! Try again.' : '❌ Error! Dobara try karo.', 'error-toast');
+      btn.disabled = false;
+      btn.textContent = lang === 'en' ? 'Create Account →' : 'Account Banao →';
+    }
+  };
 </script>
 
-<!-- ✅ LANGUAGE TOGGLE — Yeh line ZAROORI hai har page mein -->
 <script src="lang.js"></script>
-
 </body>
 </html>
