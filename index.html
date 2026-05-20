@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading...</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: monospace;
+    color: #00e5a0;
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+  .dot { display: inline-block; animation: blink 1.2s infinite; }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%,100%{opacity:0.2} 50%{opacity:1} }
+</style>
+</head>
+<body>
+  <span>Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></span>
+<script>
+  const user = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
+  if (user) {
+    window.location.replace('portfolio.html');
+  } else {
+    window.location.replace('login.html');
+  }
+</script>
+</body>
+</html>
