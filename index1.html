@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zaiqa Kitchen Modern</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --primary:#0f5132;
+  --secondary:#198754;
+  --gold:#f5b301;
+  --dark:#081018;
+  --light:#f5f7fb;
+  --white:#ffffff;
+  --muted:#94a3b8;
+  --glass:rgba(255,255,255,.12);
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:#06131d;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+  linear-gradient(rgba(6,19,29,.88),rgba(6,19,29,.92)),
+  url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1800&auto=format&fit=crop');
+  background-size:cover;
+  background-position:center;
+  z-index:-2;
+}
+
+body::after{
+  content:'';
+  position:fixed;
+  width:600px;
+  height:600px;
+  border-radius:50%;
+  background:radial-gradient(circle,var(--secondary),transparent 70%);
+  top:-200px;
+  right:-180px;
+  opacity:.22;
+  filter:blur(20px);
+  z-index:-1;
+}
+
+.container{
+  width:min(1200px,92%);
+  margin:auto;
+}
+
+/* =========================
+NAVBAR
+========================= */
+
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:999;
+  backdrop-filter:blur(18px);
+  background:rgba(8,16,24,.55);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:85px;
+}
+
+.logo{
+  font-size:2rem;
+  font-weight:800;
+}
+
+.logo span{
+  color:var(--gold);
+}
+
+.nav-links{
+  display:flex;
+  gap:30px;
+  margin-left:auto;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:#fff;
+  font-weight:500;
+  position:relative;
+  transition:.3s;
+}
+
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:-8px;
+  width:0;
+  height:2px;
+  background:var(--gold);
+  transition:.35s;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+.nav-links a:hover{
+  color:var(--gold);
+}
+
+/* SEARCH NAV */
+
+.search-nav{
+  position:relative;
+  width:340px;
+  height:54px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 18px;
+  margin-left:40px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(16px);
+}
+
+.search-nav i{
+  color:var(--gold);
+  font-size:1.1rem;
+}
+
+.search-nav input{
+  flex:1;
+  background:none;
+  border:none;
+  outline:none;
+  color:#fff;
+  font-family:'Poppins',sans-serif;
+}
+
+.search-nav input::placeholder{
+  color:#cbd5e1;
+}
+
+.search-dropdown{
+  position:absolute;
+  top:65px;
+  left:0;
+  width:100%;
+  border-radius:22px;
+  overflow:hidden;
+  background:rgba(8,16,24,.95);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+  display:none;
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+}
+
+.search-nav:focus-within .search-dropdown{
+  display:block;
+}
+
+.search-item{
+  padding:16px 18px;
+  cursor:pointer;
+  transition:.3s;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.search-item:hover{
+  background:rgba(255,255,255,.08);
+  color:var(--gold);
+}
+
+/* =========================
+HERO
+========================= */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  align-items:center;
+}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 18px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(14px);
+  margin-bottom:26px;
+  color:#d1fae5;
+  font-size:.92rem;
+}
+
+.hero h1{
+  font-size:4.7rem;
+  line-height:1.1;
+  font-weight:800;
+}
+
+.hero h1 span{
+  color:var(--gold);
+}
+
+.hero p{
+  color:#d6dce5;
+  line-height:1.9;
+  margin-top:22px;
+  font-size:1.05rem;
+}
+
+.hero-actions{
+  display:flex;
+  gap:18px;
+  margin-top:35px;
+}
+
+.primary-btn,
+.secondary-btn{
+  height:58px;
+  border:none;
+  border-radius:16px;
+  padding:0 28px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.35s;
+  font-size:.95rem;
+}
+
+.primary-btn{
+  background:linear-gradient(135deg,var(--gold),#ffcf4d);
+  color:#111;
+  box-shadow:0 15px 35px rgba(245,179,1,.35);
+}
+
+.secondary-btn{
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(12px);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover{
+  transform:translateY(-4px);
+}
+
+.hero-image{
+  position:relative;
+}
+
+.hero-image img{
+  width:100%;
+  border-radius:40px;
+  object-fit:cover;
+  box-shadow:0 30px 60px rgba(0,0,0,.35);
+}
+
+.floating-card{
+  position:absolute;
+  bottom:-25px;
+  left:-30px;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:24px;
+  padding:22px;
+  width:250px;
+  box-shadow:0 18px 45px rgba(0,0,0,.25);
+}
+
+.floating-card h3{
+  font-size:2rem;
+  color:var(--gold);
+}
+
+.floating-card p{
+  margin-top:8px;
+  color:#e2e8f0;
+  font-size:.92rem;
+  line-height:1.7;
+}
+
+/* =========================
+FEATURES
+========================= */
+
+.section{
+  padding:120px 0;
+}
+
+.sec-head{
+  text-align:center;
+  margin-bottom:70px;
+}
+
+.sec-head span{
+  color:var(--gold);
+  font-weight:700;
+  letter-spacing:1px;
+}
+
+.sec-head h2{
+  font-size:3rem;
+  margin-top:14px;
+}
+
+.sec-head p{
+  color:#cbd5e1;
+  max-width:700px;
+  margin:18px auto 0;
+  line-height:1.8;
+}
+
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:28px;
+}
+
+.feature-card{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(16px);
+  border-radius:30px;
+  padding:35px;
+  transition:.4s;
+}
+
+.feature-card:hover{
+  transform:translateY(-10px);
+  background:rgba(255,255,255,.12);
+}
+
+.feature-icon{
+  width:70px;
+  height:70px;
+  border-radius:20px;
+  background:linear-gradient(135deg,var(--secondary),var(--primary));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2rem;
+  margin-bottom:24px;
+}
+
+.feature-card h3{
+  font-size:1.35rem;
+  margin-bottom:14px;
+}
+
+.feature-card p{
+  color:#d1d5db;
+  line-height:1.8;
+}
+
+/* =========================
+POPULAR DISHES (SLIDER)
+========================= */
+
+.food-slider{
+  overflow:hidden;
+  position:relative;
+  width: 100%;
+}
+
+.slide-track{
+  display:flex;
+  gap:28px;
+  /* (Card width 360px + gap 28px) * Number of original slides (4) */
+  width: calc((360px + 28px) * 8); 
+  animation: scrollSlider 20s linear infinite;
+}
+
+/* Hover par slider slow ya rukne ke liye */
+.food-slider:hover .slide-track {
+  animation-play-state: paused;
+}
+
+.slide-card{
+  min-width:360px;
+  height:460px;
+  border-radius:34px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 20px 45px rgba(0,0,0,.35);
+}
+
+.slide-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition: 0.5s ease;
+}
+
+.slide-card:hover img {
+    transform: scale(1.1);
+}
+
+.slide-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.85),transparent 60%);
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:30px;
+}
+
+.slide-overlay h3{
+  font-size:2rem;
+  margin-bottom:8px;
+  color: #fff;
+}
+
+.slide-overlay p{
+  color:#e2e8f0;
+}
+
+@keyframes scrollSlider {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc((-360px - 28px) * 4)); }
+}
+
+/* =========================
+CTA
+========================= */
+
+.cta-box{
+  background:
+  linear-gradient(135deg,rgba(25,135,84,.25),rgba(15,81,50,.55));
+  border-radius:40px;
+  padding:70px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+}
+
+.cta-box h2{
+  font-size:3.3rem;
+  margin-bottom:20px;
+}
+
+.cta-box p{
+  color:#dbe4ef;
+  max-width:700px;
+  margin:auto;
+  line-height:1.9;
+}
+
+.cta-box button{
+  margin-top:35px;
+}
+
+/* =========================
+FOOTER
+========================= */
+
+.footer{
+  padding:90px 0 30px;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;
+  padding-bottom:50px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.footer-logo{
+  font-size:2rem;
+  font-weight:800;
+}
+
+.footer-logo span{
+  color:var(--gold);
+}
+
+.footer-about{
+  margin-top:20px;
+  color:#cbd5e1;
+  line-height:1.9;
+  max-width:420px;
+}
+
+.socials{
+  display:flex;
+  gap:14px;
+  margin-top:24px;
+}
+
+.socials a{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  color:#fff;
+  background:rgba(255,255,255,.08);
+  transition:.35s;
+}
+
+.socials a:hover{
+  background:var(--gold);
+  color:#111;
+  transform:translateY(-4px);
+}
+
+.footer-links h4{
+  margin-bottom:22px;
+  font-size:1.2rem;
+}
+
+.footer-links a{
+  display:block;
+  margin-bottom:14px;
+  text-decoration:none;
+  color:#cbd5e1;
+  transition:.3s;
+}
+
+.footer-links a:hover{
+  color:var(--gold);
+  padding-left:6px;
+}
+
+.copy{
+  text-align:center;
+  padding-top:28px;
+  color:#94a3b8;
+  font-size:.92rem;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:1050px){
+  .hero-grid, .features-grid, .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+  .hero h1{ font-size:3.8rem; }
+}
+
+@media(max-width:760px){
+  .nav-inner{ flex-direction:column; height:auto; padding:20px 0; gap:20px; }
+  .search-nav{ width:100%; margin-left:0; }
+  .nav-links{ justify-content:center; }
+  .hero-grid, .features-grid, .footer-grid{ grid-template-columns:1fr; }
+  .hero h1{ font-size:2.8rem; }
+  .slide-card { min-width: 300px; height: 400px; }
+  @keyframes scrollSlider {
+    100% { transform: translateX(calc((-300px - 28px) * 4)); }
+  }
+}
+
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <div class="logo">
+      Zaiqa <span>Kitchen</span>
+    </div>
+    <div class="search-nav">
+      <i class="ti ti-search"></i>
+      <input type="text" placeholder="Search delicious food..." id="navSearch">
+      <div class="search-dropdown" id="searchDropdown">
+        <div class="search-item">Chicken Biryani</div>
+        <div class="search-item">Mutton Karahi</div>
+        <div class="search-item">Seekh Kebab</div>
+        <div class="search-item">Mango Lassi</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#menu">Menu</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-badge">
+        <i class="ti ti-flame"></i>
+        Authentic Pakistani Flavours
+      </div>
+      <h1>Taste The <span>Premium</span> Pakistani Food Experience</h1>
+      <p>Zaiqa Kitchen brings modern dining with traditional desi flavours. Fresh ingredients, premium quality, unforgettable taste, and ultra fast delivery.</p>
+      <div class="hero-actions">
+        <button class="primary-btn" onclick="window.location.href='rest2.html'">Explore Menu</button>
+        <button class="secondary-btn">Book Table</button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1400&auto=format&fit=crop">
+      <div class="floating-card">
+        <h3>50K+</h3>
+        <p>Happy food lovers enjoying our premium desi cuisine everyday.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="container">
+    <div class="sec-head">
+      <span>WHY CHOOSE US</span>
+      <h2>Modern Restaurant Experience</h2>
+      <p>A luxury food experience with stylish presentation, hygienic cooking, and authentic taste.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="ti ti-chef-hat"></i></div>
+        <h3>Expert Chefs</h3>
+        <p>Our chefs prepare every meal with passion, premium spices, and authentic desi recipes.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="ti ti-bike"></i></div>
+        <h3>Fast Delivery</h3>
+        <p>Fresh hot food delivered quickly with modern packaging and premium service.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="ti ti-star"></i></div>
+        <h3>Premium Quality</h3>
+        <p>High quality ingredients and unforgettable flavours made for food lovers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="menu">
+  <div class="container">
+    <div class="sec-head">
+      <span>POPULAR DISHES</span>
+      <h2>Luxury Food Showcase</h2>
+      <p>Discover premium desi dishes with modern presentation and unforgettable flavour.</p>
+    </div>
+
+    <div class="food-slider">
+      <div class="slide-track">
+        <div class="slide-card">
+          <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=1200&auto=format&fit=crop" alt="Chicken Biryani">
+          <div class="slide-overlay">
+            <h3>Chicken Biryani</h3>
+            <p>Traditional spicy premium biryani.</p>
+          </div>
+        </div>
+
+        <div class="slide-card">
+          <img src="https://images.unsplash.com/photo-1633945274405-b6c8069047b0?q=80&w=1200&auto=format&fit=crop" alt="Mutton Karahi">
+          <div class="slide-overlay">
+            <h3>Mutton Karahi</h3>
+            <p>Rich desi flavour with modern touch.</p>
+          </div>
+        </div>
+
+        <div class="slide-card">
+          <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=1200&auto=format&fit=crop" alt="Seekh Kebab">
+          <div class="slide-overlay">
+            <h3>Seekh Kebab</h3>
+            <p>Charcoal grilled juicy kebabs.</p>
+          </div>
+        </div>
+
+        <div class="slide-card">
+          <img src="https://images.unsplash.com/photo-1626132646529-500637532537?q=80&w=1200&auto=format&fit=crop" alt="Chicken Tikka">
+          <div class="slide-overlay">
+            <h3>Chicken Tikka</h3>
+            <p>Smoky tikka with spicy flavour.</p>
+          </div>
+        </div>
+
+        <div class="slide-card">
+          <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?q=80&w=1200&auto=format&fit=crop" alt="Chicken Biryani">
+          <div class="slide-overlay">
+            <h3>Chicken Biryani</h3>
+            <p>Traditional spicy premium biryani.</p>
+          </div>
+        </div>
+        <div class="slide-card">
+          <img src="https://images.unsplash.com/photo-1633945274405-b6c8069047b0?q=80&w=1200&auto=format&fit=crop" alt="Mutton Karahi">
+          <div class="slide-overlay">
+            <h3>Mutton Karahi</h3>
+            <p>Rich desi flavour with modern touch.</p>
+          </div>
+        </div>
+        <div class="slide-card">
+          <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=1200&auto=format&fit=crop" alt="Seekh Kebab">
+          <div class="slide-overlay">
+            <h3>Seekh Kebab</h3>
+            <p>Charcoal grilled juicy kebabs.</p>
+          </div>
+        </div>
+        <div class="slide-card">
+          <img src="https://images.unsplash.com/photo-1626132646529-500637532537?q=80&w=1200&auto=format&fit=crop" alt="Chicken Tikka">
+          <div class="slide-overlay">
+            <h3>Chicken Tikka</h3>
+            <p>Smoky tikka with spicy flavour.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-box">
+      <h2>Ready To Enjoy Premium Taste?</h2>
+      <p>Experience the perfect combination of traditional Pakistani flavours and ultra modern restaurant vibes.</p>
+      <button class="primary-btn">Order Delicious Food</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Zaiqa <span>Kitchen</span></div>
+        <div class="footer-about">Premium Pakistani food brand serving authentic taste with modern dining experience and fast delivery service.</div>
+        <div class="socials">
+          <a href="#"><i class="ti ti-brand-facebook"></i></a>
+          <a href="#"><i class="ti ti-brand-instagram"></i></a>
+          <a href="#"><i class="ti ti-brand-youtube"></i></a>
+          <a href="#"><i class="ti ti-brand-twitter"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#menu">Menu</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h4>Our Menu</h4>
+        <a href="#">Biryani</a>
+        <a href="#">Karahi</a>
+        <a href="#">BBQ</a>
+        <a href="#">Desserts</a>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <a href="#">+92 300 1234567</a>
+        <a href="#">info@zaiqakitchen.com</a>
+        <a href="#">Karachi Pakistan</a>
+        <a href="#">Open 24/7</a>
+      </div>
+    </div>
+    <div class="copy">© 2026 Zaiqa Kitchen — Designed With Modern UI Experience.</div>
+  </div>
+</footer>
+
+</body>
+</html>
