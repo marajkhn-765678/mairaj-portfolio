@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mairaj Mustafa — Web Developer &amp; Sales Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue-deep:#0B4FA0;
+    --blue:#2E7CF6;
+    --blue-soft:#5B9BFA;
+    --blue-pale:#E8F1FE;
+    --ink:#16233A;
+    --muted:#5C6B84;
+    --white:#FFFFFF;
+    --glass:rgba(255,255,255,0.60);
+    --glass-2:rgba(255,255,255,0.78);
+    --glass-border:rgba(46,124,246,0.16);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    line-height:1.6;
+    min-height:100vh;
+    position:relative;
+    background:linear-gradient(180deg, #F4F8FF, #EAF1FD);
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+
+  /* ---------- animated background (video-like motion) ---------- */
+  .bg-anim{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    overflow:hidden;
+    pointer-events:none;
+    background:linear-gradient(180deg, #F4F8FF, #EAF1FD);
+  }
+  .bg-anim span.blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(10px);
+    opacity:0.55;
+  }
+  .bg-anim span.b1{
+    width:620px; height:620px;
+    top:-220px; left:-160px;
+    background:radial-gradient(circle, rgba(46,124,246,0.20), transparent 70%);
+    animation:drift1 22s ease-in-out infinite alternate;
+  }
+  .bg-anim span.b2{
+    width:520px; height:520px;
+    top:-120px; right:-180px;
+    background:radial-gradient(circle, rgba(91,155,250,0.18), transparent 70%);
+    animation:drift2 26s ease-in-out infinite alternate;
+  }
+  .bg-anim span.b3{
+    width:700px; height:700px;
+    bottom:-320px; left:30%;
+    background:radial-gradient(circle, rgba(46,124,246,0.14), transparent 70%);
+    animation:drift3 30s ease-in-out infinite alternate;
+  }
+  @keyframes drift1{
+    0%{ transform:translate(0,0) scale(1); }
+    100%{ transform:translate(60px,50px) scale(1.12); }
+  }
+  @keyframes drift2{
+    0%{ transform:translate(0,0) scale(1); }
+    100%{ transform:translate(-70px,60px) scale(1.08); }
+  }
+  @keyframes drift3{
+    0%{ transform:translate(0,0) scale(1); }
+    100%{ transform:translate(40px,-40px) scale(1.1); }
+  }
+
+  /* moving wave layers for a "video" feel */
+  .bg-anim .wave{
+    position:absolute;
+    left:-10%;
+    width:120%;
+    height:420px;
+    background-repeat:repeat-x;
+    background-size:1400px 420px;
+    opacity:0.5;
+  }
+  .bg-anim .wave1{
+    bottom:-60px;
+    background-image:radial-gradient(ellipse 700px 200px at 50% 100%, rgba(46,124,246,0.16), transparent 70%);
+    animation:waveMove 18s linear infinite;
+  }
+  .bg-anim .wave2{
+    bottom:-140px;
+    background-image:radial-gradient(ellipse 700px 220px at 50% 100%, rgba(11,79,160,0.12), transparent 70%);
+    animation:waveMove 26s linear infinite reverse;
+  }
+  @keyframes waveMove{
+    0%{ background-position-x:0; }
+    100%{ background-position-x:1400px; }
+  }
+
+  /* floating particles for extra motion */
+  .bg-anim .particle{
+    position:absolute;
+    bottom:-40px;
+    border-radius:50%;
+    background:rgba(46,124,246,0.35);
+    animation:floatUp linear infinite;
+  }
+  @keyframes floatUp{
+    0%{ transform:translateY(0) translateX(0); opacity:0; }
+    10%{ opacity:0.7; }
+    90%{ opacity:0.5; }
+    100%{ transform:translateY(-110vh) translateX(30px); opacity:0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .bg-anim span.blob, .bg-anim .wave, .bg-anim .particle{ animation:none; }
+  }
+  svg.icon{ width:18px; height:18px; flex-shrink:0; stroke:currentColor; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+
+  .page{ max-width:1180px; margin:0 auto; padding:34px; display:flex; flex-direction:column; gap:20px; }
+
+  .glass{
+    background:var(--glass);
+    backdrop-filter:blur(20px) saturate(160%);
+    -webkit-backdrop-filter:blur(20px) saturate(160%);
+    border:2px solid rgba(46,124,246,0.38);
+    box-shadow:0 8px 30px rgba(46,124,246,0.10), inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+
+  /* ============ HERO HEADER ============ */
+  .hero{
+    border-radius:24px;
+    padding:48px 48px;
+    display:flex;
+    align-items:center;
+    gap:40px;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(120deg, #0B2E63 0%, #123B82 45%, #0E5CC7 100%);
+    border:3px solid rgba(255,255,255,0.65);
+    box-shadow:0 16px 40px rgba(11,46,99,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-80px; right:-80px;
+    width:340px; height:340px;
+    background:radial-gradient(circle, rgba(91,155,250,0.35), transparent 70%);
+    pointer-events:none;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    bottom:-100px; left:-60px;
+    width:280px; height:280px;
+    background:radial-gradient(circle, rgba(46,124,246,0.25), transparent 70%);
+    pointer-events:none;
+  }
+  .avatar-slot{
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    flex-shrink:0;
+    background:linear-gradient(155deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04));
+    border:4px solid rgba(255,255,255,0.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    box-shadow:0 14px 36px rgba(4,20,48,0.45), 0 0 0 8px rgba(91,155,250,0.14);
+    position:relative;
+    z-index:1;
+  }
+  .avatar-slot img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center;
+    display:none;
+    background:radial-gradient(circle, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+  }
+  .avatar-slot .initials{
+    font-family:'Poppins', sans-serif;
+    font-size:64px;
+    font-weight:700;
+    color:#fff;
+    letter-spacing:0.5px;
+  }
+  .hero-info{ position:relative; z-index:1; flex:1; min-width:0; }
+  .hero-info h1{
+    font-family:'Poppins', sans-serif;
+    font-size:52px;
+    font-weight:700;
+    letter-spacing:-0.8px;
+    line-height:1.05;
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    opacity:0;
+    animation:nameIn .8s ease forwards;
+  }
+  .hero-info h1 .n1{
+    color:#FFFFFF;
+    font-weight:800;
+  }
+  .hero-info h1 .n2{
+    font-weight:600;
+    color:transparent;
+    -webkit-text-stroke:1.4px #BFDBFF;
+    background:linear-gradient(100deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.15) 40%, #EAF2FF 50%, rgba(255,255,255,0.15) 60%, rgba(255,255,255,0.15) 100%);
+    background-size:250% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    animation:shine 5s linear 1.2s infinite;
+  }
+  @keyframes nameIn{
+    0%{ opacity:0; transform:translateY(14px); }
+    100%{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes shine{
+    0%{ background-position:200% 0; }
+    100%{ background-position:-50% 0; }
+  }
+  .role-tag{
+    display:inline-flex;
+    align-items:center;
+    margin-top:16px;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.6px;
+    color:#EAF2FF;
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.35);
+    padding:8px 15px;
+    border-radius:999px;
+    white-space:nowrap;
+    overflow:hidden;
+    max-width:0;
+    animation:typeIn 1.4s steps(30, end) .5s forwards;
+  }
+  .role-tag::after{
+    content:"";
+    display:inline-block;
+    width:2px;
+    height:12px;
+    background:#EAF2FF;
+    margin-left:2px;
+    animation:caret .8s step-end infinite;
+  }
+  @keyframes typeIn{
+    0%{ max-width:0; }
+    100%{ max-width:340px; }
+  }
+  @keyframes caret{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0; }
+  }
+  .contact-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 22px;
+    margin-top:20px;
+    opacity:0;
+    animation:nameIn .8s ease 1.6s forwards;
+  }
+  .contact-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:500;
+    color:var(--muted);
+  }
+  .contact-item svg{ color:var(--blue); }
+  .contact-item a{ color:var(--muted); text-decoration:none; border-bottom:1px solid transparent; transition:color .2s ease, border-color .2s ease; }
+  .contact-item a:hover{ color:var(--blue-deep); border-color:var(--blue-deep); }
+
+  .hero-actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    position:relative;
+    z-index:1;
+    flex-shrink:0;
+  }
+  .btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:0.2px;
+    text-decoration:none;
+    padding:13px 20px;
+    border-radius:12px;
+    transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, background .22s ease;
+    position:relative;
+    overflow:hidden;
+    white-space:nowrap;
+  }
+  .btn::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg, rgba(255,255,255,0.4), rgba(255,255,255,0) 45%);
+    transform:translateX(-120%);
+    transition:transform .55s ease;
+  }
+  .btn:hover::after{ transform:translateX(120%); }
+  .btn-primary{
+    background:var(--blue);
+    color:#fff;
+    box-shadow:0 6px 16px rgba(46,124,246,0.32);
+  }
+  .btn-primary:hover{ background:var(--blue-deep); transform:translateY(-3px) scale(1.02); box-shadow:0 14px 28px rgba(46,124,246,0.42); }
+  .btn-primary:active{ transform:translateY(-1px) scale(0.99); }
+  .btn-ghost{
+    background:rgba(255,255,255,0.55);
+    color:var(--blue-deep);
+    border:1.5px solid rgba(46,124,246,0.35);
+  }
+  .btn-ghost:hover{ background:var(--blue-pale); transform:translateY(-3px); border-color:var(--blue); box-shadow:0 10px 22px rgba(46,124,246,0.20); }
+
+  /* ============ GRID ============ */
+  .grid{ display:grid; grid-template-columns:300px 1fr; gap:20px; align-items:start; }
+
+  .panel{ border-radius:20px; padding:32px 34px; }
+  .side-stack{ display:flex; flex-direction:column; gap:20px; }
+
+  .block-title{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1.6px;
+    color:var(--blue);
+    margin-bottom:16px;
+  }
+  .block-title svg{ color:var(--blue); }
+
+  .contact-list{ list-style:none; display:flex; flex-direction:column; gap:12px; }
+  .contact-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:9px;
+    font-size:12.5px;
+    font-weight:500;
+    color:var(--muted);
+  }
+  .contact-list li svg{ color:var(--blue); margin-top:1px; flex-shrink:0; }
+  .contact-list a{ color:var(--muted); text-decoration:none; border-bottom:1px solid transparent; transition:color .2s ease, border-color .2s ease; word-break:break-word; }
+  .contact-list a:hover{ color:var(--blue-deep); border-color:var(--blue-deep); }
+
+  section h2.title{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    font-size:21px;
+    font-weight:700;
+    margin-bottom:16px;
+    color:var(--ink);
+    letter-spacing:-0.3px;
+  }
+  section h2.title svg{ color:var(--blue); width:22px; height:22px; }
+
+  .profile-text{
+    font-size:14.5px;
+    font-weight:400;
+    color:var(--muted);
+    border-left:3px solid var(--blue);
+    padding-left:18px;
+  }
+
+  /* skills */
+  .skill-card{ margin-bottom:16px; }
+  .skill-card:last-child{ margin-bottom:0; }
+  .skill-card h3{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:0.8px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  .skill-card h3 svg{ width:15px; height:15px; color:var(--blue-soft); }
+  .pill-row{ display:flex; flex-wrap:wrap; gap:7px; }
+  .pill{
+    font-size:11.5px;
+    font-weight:500;
+    background:#F2F6FF;
+    color:var(--ink);
+    border:1px solid rgba(46,124,246,0.14);
+    padding:6px 11px;
+    border-radius:999px;
+    transition:background .18s ease, border-color .18s ease, transform .18s ease;
+  }
+  .pill:hover{ background:var(--blue-pale); border-color:rgba(46,124,246,0.3); transform:translateY(-1px); }
+  .pill.accent{
+    background:var(--blue-pale);
+    color:var(--blue-deep);
+    border:1px solid rgba(46,124,246,0.28);
+    font-weight:600;
+  }
+
+  /* languages */
+  .lang-row{ display:flex; flex-direction:column; gap:10px; }
+  .lang-item{ display:flex; justify-content:space-between; align-items:center; font-size:13px; font-weight:400; }
+  .lang-item .level{ color:var(--muted); font-size:11px; font-weight:600; background:#F2F6FF; padding:4px 9px; border-radius:999px; }
+
+  /* personal details */
+  .personal-details{ display:flex; flex-direction:column; gap:10px; }
+  .pd-item{ display:flex; gap:9px; align-items:flex-start; font-size:12px; }
+  .pd-item svg{ color:var(--blue-soft); margin-top:1px; }
+  .pd-item b{ display:block; color:var(--ink); font-weight:600; font-size:11px; }
+  .pd-item span.v{ color:var(--muted); }
+
+  /* education */
+  .edu-grid{ display:flex; flex-direction:column; gap:11px; }
+  .edu-item{
+    display:flex; gap:12px; align-items:flex-start;
+    padding:13px 15px;
+    background:var(--glass-2);
+    border:1px solid var(--glass-border);
+    border-radius:12px;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .edu-item:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(46,124,246,0.12); }
+  .edu-item svg{ color:var(--blue); margin-top:2px; flex-shrink:0; }
+  .edu-item .deg{ font-weight:600; font-size:13px; color:var(--ink); display:block; }
+  .edu-item .inst{ font-size:11px; font-weight:500; color:var(--blue); margin-top:2px; display:block; }
+
+  /* experience timeline */
+  .timeline{ position:relative; padding-left:30px; }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:6px; top:6px; bottom:6px;
+    width:2px;
+    background:linear-gradient(180deg, var(--blue), rgba(46,124,246,0.08));
+    border-radius:2px;
+  }
+  .tl-item{ position:relative; margin-bottom:28px; }
+  .tl-item:last-child{ margin-bottom:0; }
+  .tl-dot{
+    position:absolute;
+    left:-30px; top:4px;
+    width:26px; height:26px;
+    border-radius:50%;
+    background:var(--white);
+    border:2px solid var(--blue);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--blue);
+    box-shadow:0 4px 10px rgba(46,124,246,0.20);
+  }
+  .tl-dot.muted{ border-color:var(--blue-soft); color:var(--blue-soft); }
+  .tl-dot svg{ width:13px; height:13px; }
+  .tl-item h3{ font-size:16.5px; font-weight:700; color:var(--ink); }
+  .tl-item .org{ font-size:12px; font-weight:500; color:var(--blue); margin:4px 0 10px; }
+  .tl-item ul{ padding-left:18px; color:var(--muted); font-size:13.5px; font-weight:400; display:flex; flex-direction:column; gap:6px; }
+  .tl-item a.link{ color:var(--blue); text-decoration:none; border-bottom:1px solid rgba(46,124,246,0.35); transition:color .18s ease; }
+  .tl-item a.link:hover{ color:var(--blue-deep); }
+
+  footer{
+    font-size:11px;
+    color:var(--muted);
+    text-align:center;
+    padding:10px 0 4px;
+  }
+
+  @media print{
+    body{ background:#fff; color:#111; }
+    .glass{ backdrop-filter:none; background:#fff; border:1px solid #ddd; box-shadow:none; }
+  }
+
+  /* ---------- scale wrapper: keeps the exact desktop layout on any screen ---------- */
+  .scale-outer{
+    width:100%;
+    overflow-x:hidden;
+    display:flex;
+    justify-content:center;
+  }
+  .page{
+    width:1180px;
+    max-width:1180px;
+    transform-origin:top center;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-anim">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+  <div class="wave wave1"></div>
+  <div class="wave wave2"></div>
+  <span class="particle" style="left:8%; width:10px; height:10px; animation-duration:16s; animation-delay:0s;"></span>
+  <span class="particle" style="left:18%; width:6px; height:6px; animation-duration:12s; animation-delay:2s;"></span>
+  <span class="particle" style="left:30%; width:14px; height:14px; animation-duration:20s; animation-delay:1s;"></span>
+  <span class="particle" style="left:45%; width:8px; height:8px; animation-duration:15s; animation-delay:4s;"></span>
+  <span class="particle" style="left:58%; width:12px; height:12px; animation-duration:18s; animation-delay:3s;"></span>
+  <span class="particle" style="left:70%; width:7px; height:7px; animation-duration:13s; animation-delay:6s;"></span>
+  <span class="particle" style="left:82%; width:11px; height:11px; animation-duration:19s; animation-delay:2.5s;"></span>
+  <span class="particle" style="left:92%; width:9px; height:9px; animation-duration:14s; animation-delay:5s;"></span>
+</div>
+
+<div class="scale-outer" id="scaleOuter">
+<div class="page" id="page">
+
+  <!-- ================= HERO ================= -->
+  <header class="hero glass">
+    <div class="avatar-slot">
+      <!-- To use your own photo: put an image file (e.g. photo.jpg) in the same folder
+           as this HTML file, then change the line below to:
+           <img src="photo.jpg" alt="Mairaj Mustafa" style="display:block;"> -->
+      <img src="/ChatGPT_Image_Aug_8__2026__10_03_16_PM-removebg-preview.png" alt="Mairaj Mustafa" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+      <span class="initials">MM</span>
+    </div>
+
+    <div class="hero-info">
+      <h1><span class="n1">MAIRAJ</span><span class="n2">MUSTAFA</span></h1>
+      <div class="role-tag">WEB DEVELOPER &nbsp;·&nbsp; SALES SPECIALIST</div>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://fantastic-muffin-fd54ce.netlify.app/" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 20 20" stroke="#fff"><path d="M7 13 13 7"/><path d="M9 7h4v4"/><rect x="3" y="3" width="14" height="14" rx="3"/></svg>
+        View Project
+      </a>
+      <a class="btn btn-ghost" href="mailto:Mairajkhanmaju@gmail.com">
+        <svg class="icon" viewBox="0 0 20 20"><rect x="2.5" y="4.5" width="15" height="11" rx="2"/><path d="M3 5.5 10 11l7-5.5"/></svg>
+        Contact Me
+      </a>
+    </div>
+  </header>
+
+  <!-- ================= GRID ================= -->
+  <div class="grid">
+
+    <!-- ============ LEFT SIDEBAR ============ -->
+    <div class="side-stack">
+
+      <div class="panel glass">
+        <div class="block-title">
+          <svg class="icon" viewBox="0 0 20 20"><path d="M4 3h3l1.5 4-2 1.2a11 11 0 0 0 5.3 5.3l1.2-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A15 15 0 0 1 2.5 4.6 1.5 1.5 0 0 1 4 3Z"/></svg>
+          Contact
+        </div>
+        <ul class="contact-list">
+          <li>
+            <svg class="icon" viewBox="0 0 20 20"><path d="M4 3h3l1.5 4-2 1.2a11 11 0 0 0 5.3 5.3l1.2-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A15 15 0 0 1 2.5 4.6 1.5 1.5 0 0 1 4 3Z"/></svg>
+            <span>0319-2632226 / 0313-9226252</span>
+          </li>
+          <li>
+            <svg class="icon" viewBox="0 0 20 20"><rect x="2.5" y="4.5" width="15" height="11" rx="2"/><path d="M3 5.5 10 11l7-5.5"/></svg>
+            <a href="mailto:Mairajkhanmaju@gmail.com">Mairajkhanmaju@gmail.com</a>
+          </li>
+          <li>
+            <svg class="icon" viewBox="0 0 20 20"><path d="M10 18s6-5.6 6-10.2A6 6 0 0 0 4 7.8C4 12.4 10 18 10 18Z"/><circle cx="10" cy="7.6" r="2.2"/></svg>
+            <span>Flat No B-408, Karachi Complex, Gharibabad, Karachi</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="panel glass">
+        <div class="block-title">
+          <svg class="icon" viewBox="0 0 20 20"><path d="M3 15c0-3.9 3.1-7 7-7s7 3.1 7 7"/><circle cx="10" cy="5.5" r="2.5"/></svg>
+          Skills
+        </div>
+
+        <div class="skill-card">
+          <h3><svg viewBox="0 0 20 20"><path d="M6 4 2 10l4 6"/><path d="M14 4l4 6-4 6"/><path d="M11.5 3.5l-3 13"/></svg>Web Development</h3>
+          <div class="pill-row">
+            <span class="pill accent">HTML5</span>
+            <span class="pill accent">CSS3</span>
+            <span class="pill accent">JavaScript</span>
+            <span class="pill accent">Responsive Design</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3><svg viewBox="0 0 20 20"><path d="M10 2v3M10 15v3M2 10h3M15 10h3M4.5 4.5l2 2M13.5 13.5l2 2M4.5 15.5l2-2M13.5 6.5l2-2"/><circle cx="10" cy="10" r="3"/></svg>AI Tools Integration</h3>
+          <div class="pill-row">
+            <span class="pill accent">AI Prompting</span>
+            <span class="pill accent">Generative AI for Dev &amp; Content</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3><svg viewBox="0 0 20 20"><path d="M4 8h12v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8Z"/><path d="M2 8h16l-1.5-3.5a1 1 0 0 0-.9-.5H4.4a1 1 0 0 0-.9.5L2 8Z"/><path d="M8 8v-.5a2 2 0 0 1 4 0V8"/></svg>Core Skills</h3>
+          <div class="pill-row">
+            <span class="pill">Video Editing</span>
+            <span class="pill">Communication</span>
+            <span class="pill">Time Management</span>
+            <span class="pill">Problem Solving</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3><svg viewBox="0 0 20 20"><rect x="2.5" y="3.5" width="15" height="10" rx="1.5"/><path d="M7 17h6M10 13.5V17"/></svg>Software</h3>
+          <div class="pill-row">
+            <span class="pill">MS Word</span>
+            <span class="pill">MS Excel</span>
+            <span class="pill">Computer Applications</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel glass">
+        <div class="block-title">
+          <svg class="icon" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M2.5 10h15M10 2.5c2 2.2 3 4.8 3 7.5s-1 5.3-3 7.5c-2-2.2-3-4.8-3-7.5s1-5.3 3-7.5Z"/></svg>
+          Languages
+        </div>
+        <div class="lang-row">
+          <div class="lang-item"><span>English</span><span class="level">Intermediate</span></div>
+          <div class="lang-item"><span>Urdu</span><span class="level">Native / Fluent</span></div>
+        </div>
+      </div>
+
+      <div class="panel glass">
+        <div class="block-title">
+          <svg class="icon" viewBox="0 0 20 20"><rect x="2.5" y="4" width="15" height="12" rx="2"/><circle cx="7.5" cy="9.5" r="1.8"/><path d="M4.5 13.5c.7-1.4 2-2 3-2s2.3.6 3 2M12 8.5h4M12 11.5h4"/></svg>
+          Personal Details
+        </div>
+        <div class="personal-details">
+          <div class="pd-item"><svg class="icon" viewBox="0 0 20 20"><circle cx="10" cy="6.5" r="3"/><path d="M4 17c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/></svg><span><b>Father's Name</b><span class="v">Muhammad Tasleem Raza</span></span></div>
+          <div class="pd-item"><svg class="icon" viewBox="0 0 20 20"><rect x="2.5" y="5" width="15" height="10" rx="1.5"/><path d="M5.5 12.5h3M5.5 9.5h5M12.5 8.5h2v3.5h-2z"/></svg><span><b>CNIC</b><span class="v">42101-3077948-5</span></span></div>
+          <div class="pd-item"><svg class="icon" viewBox="0 0 20 20"><rect x="2.5" y="4" width="15" height="13" rx="2"/><path d="M2.5 8h15M6.5 2.5v3M13.5 2.5v3"/></svg><span><b>Date of Birth</b><span class="v">23-08-2006</span></span></div>
+          <div class="pd-item"><svg class="icon" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><path d="M2.5 10h15M10 2.5c2 2.2 3 4.8 3 7.5s-1 5.3-3 7.5c-2-2.2-3-4.8-3-7.5s1-5.3 3-7.5Z"/></svg><span><b>Nationality</b><span class="v">Pakistani</span></span></div>
+          <div class="pd-item"><svg class="icon" viewBox="0 0 20 20"><path d="M10 3c-3 3-6 5.5-6 9a6 6 0 0 0 12 0c0-3.5-3-6-6-9Z"/></svg><span><b>Marital Status</b><span class="v">Unmarried</span></span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <div class="side-stack">
+
+      <section class="panel glass" id="profile">
+        <h2 class="title"><svg class="icon" viewBox="0 0 20 20"><path d="M6 8.5c0-2 1.5-3.5 3.5-3.5h.5v3h-.5c-1 0-1.5.5-1.5 1.5v.5H10v6H4.5v-5.5c0-1-.5-1.5-1.5-1.5H2.5v-3H3c2 0 3 1.5 3 3.5Z"/><path d="M14 8.5c0-2 1.5-3.5 3.5-3.5" opacity="0"/></svg>Profile</h2>
+        <p class="profile-text">
+          A dedicated Web Developer and Sales Specialist with practical experience in customer handling, website development, and modern AI tool integration. Proven track record of independently acquiring clients and delivering live web projects. Seeking to leverage technical, communication, and AI capabilities in a dynamic organization.
+        </p>
+      </section>
+
+      <section class="panel glass" id="experience">
+        <h2 class="title"><svg class="icon" viewBox="0 0 20 20"><rect x="2.5" y="6.5" width="15" height="10" rx="1.5"/><path d="M7 6.5V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M2.5 11h15"/></svg>Work Experience</h2>
+        <div class="timeline">
+
+          <div class="tl-item">
+            <span class="tl-dot"><svg viewBox="0 0 20 20"><path d="M4 12 8 16l8-10"/></svg></span>
+            <h3>Freelance Web Developer</h3>
+            <div class="org">Self-Employed / Client Project</div>
+            <ul>
+              <li>Successfully pitched, acquired, and delivered a complete web development project for a client from scratch.</li>
+              <li>Built and deployed a live responsive website — <a class="link" href="https://fantastic-muffin-fd54ce.netlify.app/" target="_blank" rel="noopener">fantastic-muffin-fd54ce.netlify.app</a></li>
+              <li>Utilized modern web standards and AI tools to streamline workflow, design layouts, and optimize functionality.</li>
+            </ul>
+          </div>
+
+          <div class="tl-item">
+            <span class="tl-dot muted"><svg viewBox="0 0 20 20"><path d="M4 3h3l1.5 4-2 1.2a11 11 0 0 0 5.3 5.3l1.2-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A15 15 0 0 1 2.5 4.6 1.5 1.5 0 0 1 4 3Z"/></svg></span>
+            <h3>Sales Representative &amp; Call Center Agent</h3>
+            <div class="org">Maktaba-tul-Madina Call Center — 1 Year 7 Months</div>
+            <ul>
+              <li>Handled customer communication, inquiries, and issue resolution with high satisfaction rates over an extended period.</li>
+              <li>Mastered persuasion and customer handling techniques, maintaining strong client relations.</li>
+            </ul>
+          </div>
+
+          <div class="tl-item">
+            <span class="tl-dot muted"><svg viewBox="0 0 20 20"><path d="M3 16V9l7-4 7 4v7"/><path d="M8 16v-4h4v4"/></svg></span>
+            <h3>Sales Representative</h3>
+            <div class="org">Retail Shop &amp; Software House Experience</div>
+            <ul>
+              <li>Gained hands-on sales experience across retail and software office environments.</li>
+              <li>Assisted clients with product guidance and supported daily sales and management activities.</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="panel glass" id="education">
+        <h2 class="title"><svg class="icon" viewBox="0 0 20 20"><path d="M2 8l8-4 8 4-8 4-8-4Z"/><path d="M5.5 9.8V13c0 1.4 2 2.5 4.5 2.5s4.5-1.1 4.5-2.5V9.8"/><path d="M18 8v5"/></svg>Education &amp; Certifications</h2>
+        <div class="edu-grid">
+          <div class="edu-item"><svg class="icon" viewBox="0 0 20 20"><path d="M4 3h9l3 3v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M13 3v3h3M6 11l2.5 2.5L14 8"/></svg><span><span class="deg">1-Year Web Development Certification</span><span class="inst">Completed</span></span></div>
+          <div class="edu-item"><svg class="icon" viewBox="0 0 20 20"><path d="M4 17V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12l-6-3-6 3Z"/></svg><span><span class="deg">Intermediate — Commerce</span><span class="inst">National Government College, Karachi</span></span></div>
+          <div class="edu-item"><svg class="icon" viewBox="0 0 20 20"><rect x="3" y="4" width="14" height="12" rx="1.5"/><path d="M3 8h14M7 4v0M13 4v0"/></svg><span><span class="deg">Matriculation — Computer Science</span><span class="inst">Hina Secondary School, Sindh, Karachi</span></span></div>
+        </div>
+      </section>
+
+      <section class="panel glass" id="hobbies">
+        <h2 class="title"><svg class="icon" viewBox="0 0 20 20"><path d="M10 17s-6.5-4-6.5-8.7A3.8 3.8 0 0 1 10 5.8a3.8 3.8 0 0 1 6.5 2.5C16.5 13 10 17 10 17Z"/></svg>Hobbies &amp; Interests</h2>
+        <div class="pill-row">
+          <span class="pill">Website Building &amp; Exploring New Tech</span>
+          <span class="pill">AI Tools Research &amp; Prompt Engineering</span>
+          <span class="pill">Sports, Fitness &amp; Hiking</span>
+          <span class="pill">Cooking &amp; Sketching</span>
+        </div>
+      </section>
+
+      <footer>© Mairaj Mustafa — Karachi, Pakistan</footer>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+  (function(){
+    var page = document.getElementById('page');
+    var outer = document.getElementById('scaleOuter');
+    var BASE_WIDTH = 1180;
+
+    function fit(){
+      page.style.transform = 'none';
+      var naturalHeight = page.offsetHeight;
+      var scale = Math.min(window.innerWidth / BASE_WIDTH, 1);
+      page.style.transform = 'scale(' + scale + ')';
+      outer.style.height = (naturalHeight * scale) + 'px';
+    }
+
+    window.addEventListener('load', fit);
+    window.addEventListener('resize', fit);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(fit);
+    }
+    fit();
+  })();
+</script>
+
+</body>
+</html>
