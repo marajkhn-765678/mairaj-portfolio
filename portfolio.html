@@ -136,6 +136,78 @@ nav{
   transform:translateY(-3px);
 }
 
+/* MOBILE NAV TOGGLE */
+
+.nav-toggle{
+  display:none;
+  width:42px;
+  height:42px;
+  align-items:center;
+  justify-content:center;
+  border:none;
+  border-radius:12px;
+  background:var(--blue3);
+  color:var(--blue);
+  font-size:1.2rem;
+  cursor:pointer;
+  flex-shrink:0;
+}
+
+.nav-mobile-panel{
+  display:none;
+  position:fixed;
+  top:76px;
+  left:16px;
+  right:16px;
+  z-index:998;
+
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(30px);
+  border:1px solid rgba(255,255,255,0.6);
+  border-radius:22px;
+  box-shadow:0 20px 50px rgba(21,87,255,0.15);
+
+  padding:1rem;
+
+  flex-direction:column;
+  gap:6px;
+
+  opacity:0;
+  transform:translateY(-10px);
+  transition:opacity .25s ease, transform .25s ease;
+  pointer-events:none;
+}
+
+.nav-mobile-panel.open{
+  display:flex;
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+.nav-mobile-panel a{
+  text-decoration:none;
+  color:var(--text);
+  font-weight:600;
+  font-size:0.95rem;
+  padding:0.85rem 1rem;
+  border-radius:14px;
+  transition:0.2s;
+}
+
+.nav-mobile-panel a:hover,
+.nav-mobile-panel a.active{
+  background:var(--blue3);
+  color:var(--blue);
+}
+
+.nav-mobile-panel a.mob-hire{
+  margin-top:6px;
+  background:linear-gradient(135deg,#1557ff,#3d7cff);
+  color:white;
+  text-align:center;
+}
+
 /* HERO */
 
 #hero{
@@ -936,6 +1008,14 @@ footer{
     display:none;
   }
 
+  .nav-toggle{
+    display:flex;
+  }
+
+  .nav-hire{
+    display:none;
+  }
+
   #hero{
     padding:7rem 5% 4rem;
   }
@@ -973,12 +1053,29 @@ footer{
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
+    <!-- CV → connects to 1_index.html -->
+    <li><a href="1_index.html">CV</a></li>
   </ul>
 
-  <!-- Hire Me → Contact section -->
-  <a class="nav-hire" href="#contact">Hire Me ✦</a>
+  <!-- Hire Me → WhatsApp -->
+  <a class="nav-hire" href="https://wa.me/923192632226" target="_blank" rel="noopener">Hire Me ✦</a>
+
+  <!-- Mobile menu toggle -->
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+    <i class="ri-menu-3-line"></i>
+  </button>
 
 </nav>
+
+<!-- Mobile dropdown panel -->
+<div class="nav-mobile-panel" id="navMobilePanel">
+  <a href="#hero" class="active">Home</a>
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+  <a href="CV.html">CV</a>
+  <a class="mob-hire" href="https://wa.me/923192632226" target="_blank" rel="noopener">Hire Me ✦</a>
+</div>
 
 <!-- HERO -->
 
@@ -1161,35 +1258,35 @@ footer{
 
 </a>
 
-<a class="proj-card" href="index1.html">
+    <div class="proj-card">
 
-    <div class="proj-thumb thumb-teal">
-      <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1200&auto=format&fit=crop" alt="">
+      <div class="proj-thumb thumb-teal">
+        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1200&auto=format&fit=crop" alt="">
+      </div>
+
+      <div class="proj-body">
+
+        <div class="proj-tags">
+          <span class="ptag">Firebase</span>
+          <span class="ptag">Business</span>
+        </div>
+
+        <div class="proj-title">
+          Restaurant Website
+        </div>
+
+        <div class="proj-desc">
+          Business site with WhatsApp orders, menu system and location integration.
+        </div>
+
+        <div class="proj-links">
+          <a class="proj-link" href="#" target="_blank">Live Demo</a>
+          <a class="proj-link gh" href="#" target="_blank">GitHub</a>
+        </div>
+
+      </div>
+
     </div>
-
-    <div class="proj-body">
-
-      <div class="proj-tags">
-        <span class="ptag">Firebase</span>
-        <span class="ptag">Business</span>
-      </div>
-
-      <div class="proj-title">
-        Restaurant Website
-      </div>
-
-      <div class="proj-desc">
-        Business site with WhatsApp orders, menu system and location integration.
-      </div>
-
-      <div class="proj-links">
-        <span class="proj-link" href="#" target="_blank">Live Demo</span>
-        <span class="proj-link gh" href="#" target="_blank">GitHub</span>
-      </div>
-
-    </div>
-
-</a>
 
     <div class="proj-card">
 
@@ -1422,6 +1519,29 @@ hoverItems.forEach(item=>{
   });
 
 });
+
+/* Mobile nav toggle */
+
+const navToggle = document.getElementById("navToggle");
+const navMobilePanel = document.getElementById("navMobilePanel");
+
+if(navToggle && navMobilePanel){
+
+  navToggle.addEventListener("click",()=>{
+    navMobilePanel.classList.toggle("open");
+    navToggle.innerHTML = navMobilePanel.classList.contains("open")
+      ? '<i class="ri-close-line"></i>'
+      : '<i class="ri-menu-3-line"></i>';
+  });
+
+  navMobilePanel.querySelectorAll("a").forEach(link=>{
+    link.addEventListener("click",()=>{
+      navMobilePanel.classList.remove("open");
+      navToggle.innerHTML = '<i class="ri-menu-3-line"></i>';
+    });
+  });
+
+}
 
 </script>
 </body>
