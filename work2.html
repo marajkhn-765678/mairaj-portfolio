@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al-Noor School — Mairaj Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --g1:#00c6a7;--g2:#0ea5e9;--g3:#38bdf8;--g4:#7dd3fc;
+  --bg:#04101e;--bg2:#071828;--bg3:#0a1f30;
+  --glass:rgba(14,165,233,0.06);--glass2:rgba(14,165,233,0.11);
+  --border:rgba(56,189,248,0.13);--border2:rgba(56,189,248,0.22);
+  --text:#e2f4ff;--textm:#8bb8d4;--textd:#4a7a99;
+  --green:#00c6a7;--teal:#0ea5e9;--sky:#38bdf8;
+  --rose:#f43f5e;--amber:#f59e0b;--violet:#818cf8;
+  --r:14px;--rs:9px;
+  --sh:0 8px 40px rgba(0,0,0,0.45);
+  --shg:0 0 32px rgba(0,198,167,0.18);
+  --shb:0 0 32px rgba(14,165,233,0.18);
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+/* BG */
+body::before{content:'';position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 70% 55% at 15% 8%,rgba(0,198,167,0.13) 0%,transparent 65%),
+    radial-gradient(ellipse 60% 50% at 85% 85%,rgba(14,165,233,0.12) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 40% at 50% 40%,rgba(56,189,248,0.06) 0%,transparent 60%),
+    radial-gradient(ellipse 30% 30% at 80% 10%,rgba(129,140,248,0.06) 0%,transparent 60%);
+  pointer-events:none;}
+body::after{content:'';position:fixed;inset:0;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2338bdf8' fill-opacity='0.018'%3E%3Ccircle cx='25' cy='25' r='1.5'/%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;}
+
+#app{position:relative;z-index:1;display:flex;flex-direction:column;min-height:100vh;}
+
+/* ── HEADER ── */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(4,16,30,0.88);
+  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border-bottom:1px solid var(--border2);
+  padding:0 36px;height:80px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 4px 32px rgba(0,0,0,0.4),0 1px 0 rgba(56,189,248,0.1);
+}
+.logo{display:flex;align-items:center;gap:14px;}
+/* SVG LOGO */
+.logo-svg{width:50px;height:50px;flex-shrink:0;filter:drop-shadow(0 0 14px rgba(0,198,167,0.5));}
+.logo-text{display:flex;flex-direction:column;gap:1px;}
+.logo-name{
+  font-family:'Sora',sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.3px;
+  background:linear-gradient(135deg,var(--g1) 0%,var(--g2) 50%,var(--g3) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1.1;
+}
+.logo-sub{
+  font-size:10.5px;font-weight:600;letter-spacing:2px;
+  color:var(--textm);text-transform:uppercase;
+}
+.logo-badge{
+  margin-left:10px;padding:3px 10px;border-radius:20px;
+  background:linear-gradient(135deg,rgba(0,198,167,0.15),rgba(14,165,233,0.15));
+  border:1px solid var(--border2);
+  font-size:10px;font-weight:700;color:var(--sky);letter-spacing:0.5px;
+  align-self:center;
+}
+
+.header-right{display:flex;align-items:center;gap:14px;}
+.hpill{
+  padding:7px 15px;border-radius:22px;
+  background:rgba(56,189,248,0.07);border:1px solid var(--border);
+  font-size:11.5px;color:var(--textm);
+  display:flex;align-items:center;gap:6px;
+}
+.hpill strong{color:var(--sky);font-weight:700;}
+.admin-chip{
+  display:flex;align-items:center;gap:9px;
+  padding:6px 14px 6px 8px;border-radius:22px;
+  background:linear-gradient(135deg,rgba(0,198,167,0.12),rgba(14,165,233,0.12));
+  border:1px solid var(--border2);
+}
+.admin-avatar{
+  width:30px;height:30px;border-radius:50%;
+  background:linear-gradient(135deg,var(--g1),var(--g2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:#fff;
+}
+.admin-info{display:flex;flex-direction:column;gap:0px;}
+.admin-name{font-size:12px;font-weight:700;color:var(--text);}
+.admin-role{font-size:10px;color:var(--textm);}
+
+/* ── NAV ── */
+nav{
+  background:rgba(4,16,30,0.65);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  display:flex;gap:3px;padding:9px 28px;
+  overflow-x:auto;scrollbar-width:none;
+}
+nav::-webkit-scrollbar{display:none;}
+nav button{
+  padding:9px 17px;border:none;background:none;
+  cursor:pointer;font-size:12.5px;font-weight:500;
+  color:var(--textm);border-radius:9px;
+  transition:all 0.22s cubic-bezier(.4,0,.2,1);
+  white-space:nowrap;display:flex;align-items:center;gap:7px;
+  font-family:'Inter',sans-serif;position:relative;
+}
+nav button .nb{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--g1);position:absolute;bottom:6px;left:50%;
+  transform:translateX(-50%);opacity:0;transition:opacity 0.2s;
+}
+nav button:hover{color:var(--text);background:rgba(56,189,248,0.08);}
+nav button.active{
+  color:#fff;
+  background:linear-gradient(135deg,rgba(0,198,167,0.22),rgba(14,165,233,0.22));
+  border:1px solid rgba(0,198,167,0.3);
+  box-shadow:0 0 18px rgba(0,198,167,0.15);
+}
+nav button.active .nb{opacity:1;}
+
+/* ── MAIN ── */
+main{padding:28px 36px;max-width:1320px;margin:0 auto;width:100%;flex:1;}
+.page{display:none;animation:fiu .32s cubic-bezier(.4,0,.2,1);}
+.page.active{display:block;}
+@keyframes fiu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── STEP WIZARD ── */
+.step-wizard{
+  background:linear-gradient(135deg,rgba(0,198,167,0.06),rgba(14,165,233,0.06));
+  border:1px solid var(--border2);border-radius:var(--r);
+  padding:18px 28px;margin-bottom:22px;
+  display:flex;align-items:center;flex-wrap:wrap;gap:10px;
+  backdrop-filter:blur(12px);
+}
+.si{display:flex;align-items:center;gap:9px;}
+.sc{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;flex-shrink:0;transition:all .3s;
+}
+.sc.done{background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 0 12px rgba(0,198,167,0.5);color:#fff;}
+.sc.act{background:rgba(14,165,233,0.15);border:2px solid var(--teal);color:var(--teal);animation:pst 2s infinite;}
+.sc.pend{background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--textd);}
+@keyframes pst{0%,100%{box-shadow:0 0 0 0 rgba(14,165,233,0.4)}50%{box-shadow:0 0 0 7px rgba(14,165,233,0)}}
+.sl{font-size:12.5px;font-weight:500;}
+.sl.done{color:var(--g1);}
+.sl.act{color:var(--sky);}
+.sl.pend{color:var(--textd);}
+.sa{color:var(--textd);font-size:16px;margin:0 6px;}
+
+/* ── STATS ── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:14px;margin-bottom:22px;}
+.stat-card{
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:var(--r);padding:20px;
+  display:flex;align-items:center;gap:16px;
+  backdrop-filter:blur(14px);
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  position:relative;overflow:hidden;cursor:default;
+}
+.stat-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,198,167,0.08),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.stat-card:hover{transform:translateY(-4px);border-color:rgba(0,198,167,0.28);box-shadow:var(--shg);}
+.stat-card:hover::before{opacity:1;}
+.siw{
+  width:50px;height:50px;border-radius:13px;
+  display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;
+}
+.sic{background:rgba(0,198,167,0.12);}
+.sit{background:rgba(14,165,233,0.12);}
+.siv{background:rgba(129,140,248,0.12);}
+.sia{background:rgba(245,158,11,0.12);}
+.sir{background:rgba(244,63,94,0.12);}
+.stat-info label{font-size:10px;color:var(--textd);font-weight:600;text-transform:uppercase;letter-spacing:1px;display:block;}
+.stat-info h2{
+  font-size:28px;font-weight:800;line-height:1.1;
+  background:linear-gradient(135deg,var(--text),var(--textm));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.stat-info p{font-size:11px;color:var(--textd);margin-top:2px;}
+
+/* ── CARD ── */
+.card{
+  background:var(--glass);border:1px solid var(--border);
+  border-radius:var(--r);padding:22px;
+  backdrop-filter:blur(14px);margin-bottom:18px;
+  box-shadow:0 2px 16px rgba(0,0,0,0.25);
+}
+.card-title{
+  font-size:14.5px;font-weight:700;
+  padding-bottom:13px;margin-bottom:16px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+}
+.acc{display:inline-block;width:3px;height:17px;border-radius:2px;background:linear-gradient(to bottom,var(--g1),var(--g2));}
+
+/* ── FORMS ── */
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px;}
+.fgrp{display:flex;flex-direction:column;gap:5px;}
+.fgrp label{font-size:10.5px;font-weight:600;color:var(--textm);text-transform:uppercase;letter-spacing:0.6px;}
+.fgrp input,.fgrp select,.fgrp textarea{
+  padding:10px 13px;background:rgba(56,189,248,0.05);
+  border:1.5px solid var(--border);border-radius:9px;
+  font-size:13px;color:var(--text);outline:none;
+  transition:all .22s;font-family:'Inter',sans-serif;
+  -webkit-appearance:none;appearance:none;
+}
+.fgrp select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%238bb8d4' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;
+  padding-right:34px;cursor:pointer;
+}
+.fgrp select option{background:#071828;color:#e2f4ff;}
+.fgrp input::placeholder{color:var(--textd);}
+.fgrp input:focus,.fgrp select:focus,.fgrp textarea:focus{
+  border-color:var(--g1);background:rgba(0,198,167,0.06);
+  box-shadow:0 0 0 3px rgba(0,198,167,0.12);
+}
+.fgrp textarea{resize:vertical;min-height:68px;}
+
+/* phone input */
+.phone-wrap{display:flex;gap:0;}
+.phone-wrap select{
+  width:110px;border-radius:9px 0 0 9px;border-right:none;flex-shrink:0;font-size:12px;
+}
+.phone-wrap input{border-radius:0 9px 9px 0;flex:1;}
+
+.sdiv{margin-top:16px;padding-top:16px;border-top:1px dashed var(--border);}
+.sdiv-title{font-size:10.5px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:1px;margin-bottom:13px;display:flex;align-items:center;gap:5px;}
+
+/* ── BUTTONS ── */
+.btn{
+  padding:10px 20px;border:none;border-radius:9px;
+  cursor:pointer;font-size:13px;font-weight:600;
+  transition:all .22s cubic-bezier(.4,0,.2,1);
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:'Inter',sans-serif;position:relative;overflow:hidden;white-space:nowrap;
+}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background .18s;}
+.btn:hover::after{background:rgba(255,255,255,0.09);}
+.btn:active{transform:scale(0.97);}
+.btn-p{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;box-shadow:0 4px 18px rgba(0,198,167,0.35);}
+.btn-p:hover{box-shadow:0 6px 26px rgba(0,198,167,0.5);transform:translateY(-1px);}
+.btn-g{background:rgba(56,189,248,0.08);border:1px solid var(--border);color:var(--textm);}
+.btn-g:hover{color:var(--text);border-color:var(--border2);}
+.btn-d{background:rgba(244,63,94,0.12);border:1px solid rgba(244,63,94,0.2);color:#fb7185;}
+.btn-d:hover{background:rgba(244,63,94,0.22);}
+.btn-o{background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;box-shadow:0 4px 14px rgba(217,119,6,0.3);}
+.btn-sm{padding:5px 12px;font-size:11.5px;border-radius:7px;}
+
+/* ── TABLE ── */
+.tw{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;backdrop-filter:blur(14px);margin-bottom:18px;}
+table{width:100%;border-collapse:collapse;}
+thead tr{border-bottom:1px solid var(--border);}
+thead th{padding:12px 15px;text-align:left;font-size:10.5px;font-weight:700;color:var(--textm);text-transform:uppercase;letter-spacing:0.7px;background:rgba(56,189,248,0.03);}
+tbody tr{border-bottom:1px solid var(--border);transition:background .18s;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(56,189,248,0.05);}
+tbody td{padding:12px 15px;font-size:13px;}
+.nd{text-align:center;padding:44px;color:var(--textd);font-size:13px;}
+.nd-icon{font-size:34px;margin-bottom:9px;opacity:.45;}
+
+/* ── BADGES ── */
+.badge{padding:3px 10px;border-radius:18px;font-size:11px;font-weight:700;letter-spacing:.3px;display:inline-flex;align-items:center;gap:3px;}
+.bg{background:rgba(0,198,167,0.13);color:#2dd4bf;border:1px solid rgba(0,198,167,0.2);}
+.bb{background:rgba(14,165,233,0.13);color:#67e8f9;border:1px solid rgba(14,165,233,0.2);}
+.bo{background:rgba(245,158,11,0.13);color:#fbbf24;border:1px solid rgba(245,158,11,0.2);}
+.bv{background:rgba(129,140,248,0.13);color:#a5b4fc;border:1px solid rgba(129,140,248,0.2);}
+.br{background:rgba(244,63,94,0.12);color:#fb7185;border:1px solid rgba(244,63,94,0.2);}
+.bs{background:rgba(255,255,255,0.05);color:var(--textm);border:1px solid var(--border);}
+
+/* ── SEARCH ── */
+.sw{position:relative;}
+.sw::before{content:'⌕';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--textd);pointer-events:none;}
+.si-input{
+  padding:9px 13px 9px 36px;background:rgba(56,189,248,0.05);
+  border:1.5px solid var(--border);border-radius:9px;
+  font-size:12.5px;color:var(--text);outline:none;
+  font-family:'Inter',sans-serif;transition:all .22s;min-width:190px;
+}
+.si-input:focus{border-color:var(--g1);box-shadow:0 0 0 3px rgba(0,198,167,0.1);}
+.si-input::placeholder{color:var(--textd);}
+
+/* ── SECTION HDR ── */
+.shdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;flex-wrap:wrap;gap:9px;}
+.shdr h3{font-size:15px;font-weight:700;}
+
+/* ── ALERT ── */
+.alert{padding:11px 15px;border-radius:9px;font-size:12.5px;font-weight:500;margin-bottom:14px;display:none;backdrop-filter:blur(8px);}
+.alert-s{background:rgba(0,198,167,0.13);color:#5eead4;border:1px solid rgba(0,198,167,0.28);}
+.alert-e{background:rgba(244,63,94,0.1);color:#fda4af;border:1px solid rgba(244,63,94,0.28);}
+
+/* ── LOCK ── */
+.lock{background:rgba(245,158,11,0.07);border:1.5px dashed rgba(245,158,11,0.32);border-radius:var(--r);padding:30px;text-align:center;margin-bottom:18px;}
+.lock h3{color:#fbbf24;font-size:16px;margin-bottom:7px;}
+.lock p{color:var(--textm);font-size:13px;margin-bottom:14px;}
+
+/* ── FEE BOXES ── */
+.fbgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:13px;margin-bottom:18px;}
+.fbox{padding:18px;border-radius:var(--r);text-align:center;border:1px solid var(--border);backdrop-filter:blur(12px);transition:transform .22s;}
+.fbox:hover{transform:translateY(-3px);}
+.fbox h3{font-size:22px;font-weight:800;}
+.fbox p{font-size:11px;margin-top:4px;opacity:.8;font-weight:500;}
+.fb-g{background:rgba(0,198,167,0.1);color:#2dd4bf;}
+.fb-r{background:rgba(244,63,94,0.09);color:#fb7185;}
+.fb-b{background:rgba(14,165,233,0.1);color:#67e8f9;}
+
+/* ── DASH CHARTS AREA ── */
+.dash-bottom{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;}
+.dash-top-grid{display:grid;grid-template-columns:2fr 1.2fr;gap:18px;}
+
+/* Bar chart */
+.chart-bars{display:flex;align-items:flex-end;gap:9px;height:120px;padding-top:8px;}
+.bc{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
+.bv{font-size:10px;font-weight:700;color:var(--g1);}
+.bb2{width:100%;min-height:5px;border-radius:5px 5px 0 0;background:linear-gradient(to top,var(--g1),var(--g2));position:relative;overflow:hidden;}
+.bb2::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.18),transparent);}
+.bl{font-size:9px;color:var(--textd);text-align:center;}
+
+/* Recent list */
+.rec-item{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);}
+.rec-item:last-child{border-bottom:none;}
+
+/* ── DONUT CHART ── */
+.donut-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;}
+.donut-svg{filter:drop-shadow(0 0 12px rgba(0,198,167,0.25));}
+.donut-legend{display:flex;flex-direction:column;gap:6px;width:100%;}
+.dl-item{display:flex;align-items:center;gap:8px;font-size:12px;}
+.dl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.dl-label{color:var(--textm);flex:1;}
+.dl-val{color:var(--text);font-weight:700;}
+
+/* ── REPORT CARD ── */
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.rstat{
+  padding:13px;border-radius:10px;border:1px solid var(--border);
+  background:rgba(56,189,248,0.04);
+  display:flex;flex-direction:column;gap:4px;
+}
+.rstat .rv{font-size:20px;font-weight:800;}
+.rstat .rl{font-size:10.5px;color:var(--textd);}
+
+/* ── ATTENDANCE ── */
+.att-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:10px;}
+.att-card{border-radius:9px;padding:13px;text-align:center;cursor:pointer;transition:all .22s;border:1.5px solid var(--border);background:var(--glass);}
+.att-card:hover{transform:scale(1.04);border-color:var(--g1);}
+.att-card.present{border-color:rgba(0,198,167,0.5);background:rgba(0,198,167,0.09);}
+.att-card.absent{border-color:rgba(244,63,94,0.5);background:rgba(244,63,94,0.09);}
+.att-icon{font-size:20px;margin-bottom:5px;}
+.att-card h4{font-size:11.5px;font-weight:700;}
+.att-card p{font-size:10px;color:var(--textd);}
+.att-stat{font-size:10px;font-weight:700;margin-top:3px;}
+.att-card.present .att-stat{color:#2dd4bf;}
+.att-card.absent .att-stat{color:#fb7185;}
+
+/* ── TIMETABLE ── */
+.tt{width:100%;border-collapse:collapse;}
+.tt th,.tt td{border:1px solid var(--border);padding:9px 11px;text-align:center;font-size:11.5px;}
+.tt thead th{background:rgba(0,198,167,0.09);color:#2dd4bf;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.tt td{background:rgba(255,255,255,0.015);}
+.tt td:first-child{background:rgba(56,189,248,0.04);font-weight:600;color:var(--textm);font-size:10.5px;}
+.subj{display:inline-block;padding:3px 9px;border-radius:5px;font-size:10.5px;font-weight:600;}
+
+/* ── TIMINGS ── */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:11px;}
+.tbox{padding:14px;border-radius:9px;text-align:center;background:var(--glass);border:1px solid var(--border);transition:transform .22s;}
+.tbox:hover{transform:translateY(-2px);}
+
+/* ── CONTACTS ── */
+.cmin{font-size:11px;color:var(--textd);margin-top:2px;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(56,189,248,0.15);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:rgba(56,189,248,0.28);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .dash-bottom,.dash-top-grid{grid-template-columns:1fr;}
+  header{padding:0 16px;height:66px;}
+  main{padding:15px;}
+  nav{padding:7px 12px;}
+  .header-right .hpill:first-child{display:none;}
+}
+@media(max-width:560px){
+  .logo-name{font-size:16px;}
+  .logo-badge{display:none;}
+  nav button{padding:7px 11px;font-size:11.5px;}
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="logo">
+    <!-- PROFESSIONAL SCHOOL LOGO SVG -->
+    <svg class="logo-svg" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#00c6a7"/>
+          <stop offset="100%" stop-color="#0ea5e9"/>
+        </linearGradient>
+        <linearGradient id="lg2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#38bdf8"/>
+          <stop offset="100%" stop-color="#0ea5e9"/>
+        </linearGradient>
+      </defs>
+      <!-- Shield base -->
+      <path d="M25 3 L44 11 L44 27 C44 37 35 44 25 47 C15 44 6 37 6 27 L6 11 Z" fill="url(#lg1)" opacity="0.18"/>
+      <path d="M25 3 L44 11 L44 27 C44 37 35 44 25 47 C15 44 6 37 6 27 L6 11 Z" fill="none" stroke="url(#lg1)" stroke-width="1.8"/>
+      <!-- Book icon inside shield -->
+      <rect x="14" y="17" width="10" height="14" rx="1.5" fill="url(#lg2)" opacity="0.9"/>
+      <rect x="25" y="17" width="10" height="14" rx="1.5" fill="url(#lg1)" opacity="0.7"/>
+      <line x1="25" y1="17" x2="25" y2="31" stroke="#fff" stroke-width="1.2" opacity="0.6"/>
+      <!-- Star/cap on top -->
+      <circle cx="25" cy="12" r="3.5" fill="url(#lg1)"/>
+      <path d="M22 12 L25 8.5 L28 12" fill="#fff" opacity="0.8"/>
+      <!-- Lines on book pages -->
+      <line x1="16.5" y1="21" x2="21.5" y2="21" stroke="#fff" stroke-width="1" opacity="0.6"/>
+      <line x1="16.5" y1="24" x2="21.5" y2="24" stroke="#fff" stroke-width="1" opacity="0.6"/>
+      <line x1="16.5" y1="27" x2="21.5" y2="27" stroke="#fff" stroke-width="1" opacity="0.6"/>
+      <line x1="27" y1="21" x2="32" y2="21" stroke="#fff" stroke-width="1" opacity="0.45"/>
+      <line x1="27" y1="24" x2="32" y2="24" stroke="#fff" stroke-width="1" opacity="0.45"/>
+      <line x1="27" y1="27" x2="32" y2="27" stroke="#fff" stroke-width="1" opacity="0.45"/>
+    </svg>
+    <div class="logo-text">
+      <span class="logo-name">Al-Noor School</span>
+      <span class="logo-sub">Management System</span>
+    </div>
+    <span class="logo-badge">Pro</span>
+  </div>
+
+  <div class="header-right">
+    <div class="hpill">📚 <strong>2024–25</strong></div>
+    <div class="admin-chip">
+      <div class="admin-avatar">M</div>
+      <div class="admin-info">
+        <span class="admin-name">Mairaj</span>
+        <span class="admin-role">Administrator</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── NAV ── -->
+<nav>
+  <button class="active" onclick="showPage('dashboard',this)"><span>📊</span> Dashboard <div class="nb"></div></button>
+  <button onclick="showPage('classes',this)"><span>🏷️</span> Classes <div class="nb"></div></button>
+  <button onclick="showPage('teachers',this)"><span>👨‍🏫</span> Teachers <div class="nb"></div></button>
+  <button onclick="showPage('students',this)"><span>👨‍🎓</span> Students <div class="nb"></div></button>
+  <button onclick="showPage('fees',this)"><span>💰</span> Fees <div class="nb"></div></button>
+  <button onclick="showPage('attendance',this)"><span>✅</span> Attendance <div class="nb"></div></button>
+  <button onclick="showPage('contacts',this)"><span>📞</span> Contacts <div class="nb"></div></button>
+  <button onclick="showPage('timetable',this)"><span>📅</span> Timetable <div class="nb"></div></button>
+</nav>
+
+<main>
+
+<!-- ══ DASHBOARD ══ -->
+<div id="page-dashboard" class="page active">
+  <div class="step-wizard">
+    <div class="si"><div class="sc" id="s1c">1</div><span class="sl" id="s1l">Create Classes</span></div>
+    <span class="sa">›</span>
+    <div class="si"><div class="sc" id="s2c">2</div><span class="sl" id="s2l">Add Teachers</span></div>
+    <span class="sa">›</span>
+    <div class="si"><div class="sc" id="s3c">3</div><span class="sl" id="s3l">Enroll Students</span></div>
+    <span class="sa">›</span>
+    <div class="si"><div class="sc" id="s4c">4</div><span class="sl" id="s4l">Manage Fees</span></div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="siw sic">🏷️</div><div class="stat-info"><label>Total Classes</label><h2 id="d-cl">0</h2><p>Active Classes</p></div></div>
+    <div class="stat-card"><div class="siw sit">👨‍🏫</div><div class="stat-info"><label>Total Teachers</label><h2 id="d-tc">0</h2><p>Active Teachers</p></div></div>
+    <div class="stat-card"><div class="siw siv">👨‍🎓</div><div class="stat-info"><label>Total Students</label><h2 id="d-st">0</h2><p>Enrolled</p></div></div>
+    <div class="stat-card"><div class="siw sia">💰</div><div class="stat-info"><label>Fees Collected</label><h2 id="d-fp">Rs.0</h2><p>Total Paid</p></div></div>
+    <div class="stat-card"><div class="siw sir">⚠️</div><div class="stat-info"><label>Fees Pending</label><h2 id="d-fb">Rs.0</h2><p>Unpaid Amount</p></div></div>
+  </div>
+
+  <div class="dash-top-grid">
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-title"><div class="acc"></div>Class-Wise Students</div>
+      <div id="dash-chart" class="chart-bars"></div>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-title"><div class="acc"></div>Recent Students</div>
+      <div id="dash-recent"></div>
+    </div>
+  </div>
+
+  <div class="dash-bottom">
+    <!-- DONUT CHART -->
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-title"><div class="acc"></div>School Overview</div>
+      <div class="donut-wrap">
+        <svg class="donut-svg" width="160" height="160" viewBox="0 0 160 160" id="donut-svg">
+          <circle cx="80" cy="80" r="60" fill="none" stroke="rgba(56,189,248,0.07)" stroke-width="22"/>
+          <circle id="d-classes-arc" cx="80" cy="80" r="60" fill="none" stroke="#00c6a7" stroke-width="22" stroke-dasharray="0 377" stroke-linecap="round" transform="rotate(-90 80 80)"/>
+          <circle id="d-teachers-arc" cx="80" cy="80" r="60" fill="none" stroke="#0ea5e9" stroke-width="22" stroke-dasharray="0 377" stroke-linecap="round" transform="rotate(-90 80 80)"/>
+          <circle id="d-students-arc" cx="80" cy="80" r="60" fill="none" stroke="#818cf8" stroke-width="22" stroke-dasharray="0 377" stroke-linecap="round" transform="rotate(-90 80 80)"/>
+          <circle id="d-fees-arc" cx="80" cy="80" r="60" fill="none" stroke="#f59e0b" stroke-width="22" stroke-dasharray="0 377" stroke-linecap="round" transform="rotate(-90 80 80)"/>
+          <text x="80" y="76" text-anchor="middle" font-family="Inter" font-size="13" font-weight="800" fill="#e2f4ff" id="donut-center-val">0</text>
+          <text x="80" y="92" text-anchor="middle" font-family="Inter" font-size="9.5" fill="#4a7a99">Total Records</text>
+        </svg>
+        <div class="donut-legend">
+          <div class="dl-item"><div class="dl-dot" style="background:#00c6a7;"></div><span class="dl-label">Classes</span><span class="dl-val" id="dl-cl">0</span></div>
+          <div class="dl-item"><div class="dl-dot" style="background:#0ea5e9;"></div><span class="dl-label">Teachers</span><span class="dl-val" id="dl-tc">0</span></div>
+          <div class="dl-item"><div class="dl-dot" style="background:#818cf8;"></div><span class="dl-label">Students</span><span class="dl-val" id="dl-st">0</span></div>
+          <div class="dl-item"><div class="dl-dot" style="background:#f59e0b;"></div><span class="dl-label">Fee Records</span><span class="dl-val" id="dl-fe">0</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPORT CARD -->
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-title"><div class="acc"></div>Quick Report</div>
+      <div class="report-grid">
+        <div class="rstat" style="border-color:rgba(0,198,167,0.2);">
+          <span class="rv" style="color:#2dd4bf;" id="r-cls">0</span>
+          <span class="rl">Total Classes</span>
+        </div>
+        <div class="rstat" style="border-color:rgba(14,165,233,0.2);">
+          <span class="rv" style="color:#67e8f9;" id="r-tch">0</span>
+          <span class="rl">Total Teachers</span>
+        </div>
+        <div class="rstat" style="border-color:rgba(129,140,248,0.2);">
+          <span class="rv" style="color:#a5b4fc;" id="r-stu">0</span>
+          <span class="rl">Total Students</span>
+        </div>
+        <div class="rstat" style="border-color:rgba(244,63,94,0.2);">
+          <span class="rv" style="color:#fb7185;" id="r-stu-f">0</span>
+          <span class="rl">Fees Defaulters</span>
+        </div>
+        <div class="rstat" style="border-color:rgba(245,158,11,0.2);">
+          <span class="rv" style="color:#fbbf24;" id="r-fees">Rs.0</span>
+          <span class="rl">Total Collected</span>
+        </div>
+        <div class="rstat" style="border-color:rgba(0,198,167,0.2);">
+          <span class="rv" style="color:#2dd4bf;" id="r-fee-r">Rs.0</span>
+          <span class="rl">Fees Remaining</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CLASSES ══ -->
+<div id="page-classes" class="page">
+  <div class="card">
+    <div class="card-title"><div class="acc"></div>Step 1 — Create Class</div>
+    <div id="c-alert" class="alert"></div>
+    <div class="fg">
+      <div class="fgrp"><label>Class Name *</label><input id="c-name" placeholder="e.g. Nursery, Class 1, Grade 5"></div>
+      <div class="fgrp"><label>Section</label>
+        <select id="c-section">
+          <option value="">No Section</option>
+          <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option>
+        </select>
+      </div>
+      <div class="fgrp"><label>Room Number</label><input id="c-room" placeholder="e.g. 101, Ground Floor"></div>
+      <div class="fgrp"><label>Capacity (Seats)</label><input id="c-cap" type="number" placeholder="e.g. 30"></div>
+      <div class="fgrp"><label>Monthly Fees (Rs.)</label><input id="c-fees" type="number" placeholder="e.g. 1500"></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:9px;">
+      <button class="btn btn-p" onclick="addClass()">✅ Add Class</button>
+      <button class="btn btn-g" onclick="clrForm(['c-name','c-room','c-cap','c-fees']);sel('c-section','')">🔄 Reset</button>
+    </div>
+  </div>
+  <div class="shdr"><h3>All Classes (<span id="c-cnt">0</span>)</h3></div>
+  <div class="tw"><table><thead><tr><th>#</th><th>Class</th><th>Section</th><th>Class Teacher</th><th>Room</th><th>Seats</th><th>Students</th><th>Fees/Month</th><th>Action</th></tr></thead>
+  <tbody id="c-tb"><tr><td colspan="9"><div class="nd"><div class="nd-icon">🏫</div>No classes yet — Add above</div></td></tr></tbody></table></div>
+</div>
+
+<!-- ══ TEACHERS ══ -->
+<div id="page-teachers" class="page">
+  <div id="t-lock" class="lock" style="display:none;">
+    <h3>⚠️ Create a Class First!</h3>
+    <p>You need at least one class before adding teachers.</p>
+    <button class="btn btn-o" onclick="navTo('classes')">🏷️ Go to Classes</button>
+  </div>
+  <div id="t-form">
+    <div class="card">
+      <div class="card-title"><div class="acc"></div>Step 2 — Add Teacher</div>
+      <div id="t-alert" class="alert"></div>
+      <div class="fg">
+        <div class="fgrp"><label>Full Name *</label><input id="t-name" placeholder="Teacher full name"></div>
+        <div class="fgrp"><label>Subject *</label>
+          <select id="t-sub">
+            <option value="">Select Subject</option>
+            <option>Mathematics</option><option>Urdu</option><option>English</option>
+            <option>Science</option><option>Social Studies</option><option>Islamiyat</option>
+            <option>Computer</option><option>Quran / Nazra</option><option>Drawing / Art</option>
+            <option>Physical Education</option>
+          </select>
+        </div>
+        <div class="fgrp"><label>Assign Class</label><select id="t-cls"><option value="">Select Class</option></select></div>
+        <div class="fgrp"><label>Qualification</label>
+          <select id="t-qual">
+            <option value="">Select</option>
+            <option>Matric</option><option>F.A / F.Sc</option><option>B.A / B.Sc</option>
+            <option>B.Ed</option><option>M.A / M.Sc</option><option>M.Ed</option><option>M.Phil</option><option>PhD</option>
+          </select>
+        </div>
+        <div class="fgrp"><label>Monthly Salary (Rs.)</label><input id="t-sal" type="number" placeholder="e.g. 25000"></div>
+        <div class="fgrp"><label>Joining Date</label><input id="t-dt" type="date"></div>
+      </div>
+      <div class="sdiv">
+        <div class="sdiv-title">📞 Contact Information</div>
+        <div class="fg">
+          <div class="fgrp"><label>Mobile Number *</label>
+            <div class="phone-wrap">
+              <select id="t-cc"><option value="+92">🇵🇰 +92</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+966">🇸🇦 +966</option><option value="+971">🇦🇪 +971</option><option value="+974">🇶🇦 +974</option><option value="+965">🇰🇼 +965</option><option value="+91">🇮🇳 +91</option><option value="+880">🇧🇩 +880</option></select>
+              <input id="t-mob" type="tel" placeholder="3XX-XXXXXXX" maxlength="15" oninput="this.value=this.value.replace(/[^0-9\-]/g,'')">
+            </div>
+          </div>
+          <div class="fgrp"><label>WhatsApp Number</label>
+            <div class="phone-wrap">
+              <select id="t-wcc"><option value="+92">🇵🇰 +92</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+966">🇸🇦 +966</option><option value="+971">🇦🇪 +971</option></select>
+              <input id="t-wa" type="tel" placeholder="Same or different" maxlength="15" oninput="this.value=this.value.replace(/[^0-9\-]/g,'')">
+            </div>
+          </div>
+          <div class="fgrp"><label>Email Address</label><input id="t-email" type="email" placeholder="teacher@email.com"></div>
+          <div class="fgrp"><label>Home Address</label><input id="t-addr" placeholder="Area, Street, City"></div>
+          <div class="fgrp"><label>Emergency Contact Name</label><input id="t-en" placeholder="Family member name"></div>
+          <div class="fgrp"><label>Emergency Mobile</label>
+            <div class="phone-wrap">
+              <select id="t-ecc"><option value="+92">🇵🇰 +92</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option></select>
+              <input id="t-em" type="tel" placeholder="3XX-XXXXXXX" maxlength="15" oninput="this.value=this.value.replace(/[^0-9\-]/g,'')">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:9px;">
+        <button class="btn btn-p" onclick="addTeacher()">✅ Add Teacher</button>
+        <button class="btn btn-g" onclick="clrTeacherForm()">🔄 Reset</button>
+      </div>
+    </div>
+  </div>
+  <div class="shdr"><h3>All Teachers (<span id="t-cnt">0</span>)</h3>
+    <div class="sw"><input class="si-input" placeholder="Search teacher..." oninput="searchTeachers(this.value)"></div>
+  </div>
+  <div class="tw"><table><thead><tr><th>#</th><th>Name</th><th>Subject</th><th>Class</th><th>Contact</th><th>Qualification</th><th>Salary</th><th>Action</th></tr></thead>
+  <tbody id="t-tb"><tr><td colspan="8"><div class="nd"><div class="nd-icon">👨‍🏫</div>No teachers yet</div></td></tr></tbody></table></div>
+</div>
+
+<!-- ══ STUDENTS ══ -->
+<div id="page-students" class="page">
+  <div id="s-lock" class="lock" style="display:none;">
+    <h3>⚠️ Create a Class First!</h3>
+    <p>You need at least one class before enrolling students.</p>
+    <button class="btn btn-p" onclick="navTo('classes')">🏷️ Go to Classes</button>
+  </div>
+  <div id="s-form">
+    <div class="card">
+      <div class="card-title"><div class="acc"></div>Step 3 — Enroll Student</div>
+      <div id="s-alert" class="alert"></div>
+      <div class="fg">
+        <div class="fgrp"><label>Student Full Name *</label><input id="s-name" placeholder="Full name"></div>
+        <div class="fgrp"><label>Roll Number *</label><input id="s-roll" placeholder="e.g. 101"></div>
+        <div class="fgrp"><label>Class *</label><select id="s-cls"><option value="">Select Class</option></select></div>
+        <div class="fgrp"><label>Gender</label>
+          <select id="s-gen"><option value="">Select</option><option value="Male">Male</option><option value="Female">Female</option></select>
+        </div>
+        <div class="fgrp"><label>Date of Birth</label><input id="s-dob" type="date"></div>
+        <div class="fgrp"><label>Admission Date</label><input id="s-adt" type="date"></div>
+      </div>
+      <div class="sdiv">
+        <div class="sdiv-title">👨‍👩‍👦 Parent / Guardian Contact</div>
+        <div class="fg">
+          <div class="fgrp"><label>Father Full Name *</label><input id="s-fn" placeholder="Father name"></div>
+          <div class="fgrp"><label>Father Mobile *</label>
+            <div class="phone-wrap">
+              <select id="s-fcc"><option value="+92">🇵🇰 +92</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+966">🇸🇦 +966</option><option value="+971">🇦🇪 +971</option><option value="+974">🇶🇦 +974</option><option value="+965">🇰🇼 +965</option><option value="+91">🇮🇳 +91</option></select>
+              <input id="s-fm" type="tel" placeholder="3XX-XXXXXXX" maxlength="15" oninput="this.value=this.value.replace(/[^0-9\-]/g,'')">
+            </div>
+          </div>
+          <div class="fgrp"><label>Father WhatsApp</label>
+            <div class="phone-wrap">
+              <select id="s-fwcc"><option value="+92">🇵🇰 +92</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+966">🇸🇦 +966</option></select>
+              <input id="s-fw" type="tel" placeholder="Same or different" maxlength="15" oninput="this.value=this.value.replace(/[^0-9\-]/g,'')">
+            </div>
+          </div>
+          <div class="fgrp"><label>Mother Full Name</label><input id="s-mn" placeholder="Mother name"></div>
+          <div class="fgrp"><label>Mother Mobile</label>
+            <div class="phone-wrap">
+              <select id="s-mcc"><option value="+92">🇵🇰 +92</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option><option value="+966">🇸🇦 +966</option></select>
+              <input id="s-mm" type="tel" placeholder="3XX-XXXXXXX" maxlength="15" oninput="this.value=this.value.replace(/[^0-9\-]/g,'')">
+            </div>
+          </div>
+          <div class="fgrp"><label>Home Address</label><input id="s-addr" placeholder="Area, Street, City"></div>
+          <div class="fgrp"><label>Monthly Fees (Rs.)</label><input id="s-fees" type="number" placeholder="Class fees or custom"></div>
+          <div class="fgrp"><label>Note</label><input id="s-note" placeholder="Any special note"></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:9px;">
+        <button class="btn btn-p" onclick="addStudent()">✅ Enroll Student</button>
+        <button class="btn btn-g" onclick="clrStudentForm()">🔄 Reset</button>
+      </div>
+    </div>
+  </div>
+  <div class="shdr">
+    <h3>All Students (<span id="s-cnt">0</span>)</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <div class="sw"><input class="si-input" placeholder="Search student..." oninput="searchStudents(this.value)"></div>
+      <select id="s-flt" class="si-input" style="padding-left:13px;" onchange="filterStudents(this.value)"><option value="">All Classes</option></select>
+    </div>
+  </div>
+  <div class="tw"><table><thead><tr><th>#</th><th>Name</th><th>Roll</th><th>Class</th><th>Father / Contact</th><th>Fees</th><th>Note</th><th>Action</th></tr></thead>
+  <tbody id="s-tb"><tr><td colspan="8"><div class="nd"><div class="nd-icon">👨‍🎓</div>No students yet</div></td></tr></tbody></table></div>
+</div>
+
+<!-- ══ FEES ══ -->
+<div id="page-fees" class="page">
+  <div class="fbgrid">
+    <div class="fbox fb-g"><h3 id="f-pd">Rs.0</h3><p>💚 Total Collected</p></div>
+    <div class="fbox fb-r"><h3 id="f-bq">Rs.0</h3><p>❤️ Total Pending</p></div>
+    <div class="fbox fb-b"><h3 id="f-tt">Rs.0</h3><p>💙 Total Fees</p></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><div class="acc"></div>Step 4 — Collect Fees</div>
+    <div id="f-alert" class="alert"></div>
+    <div class="fg">
+      <div class="fgrp"><label>Select Student *</label><select id="f-stu"><option value="">Select student</option></select></div>
+      <div class="fgrp"><label>Month</label>
+        <select id="f-mon"><option>January</option><option>February</option><option>March</option><option>April</option><option>May</option><option>June</option><option>July</option><option>August</option><option>September</option><option>October</option><option>November</option><option>December</option></select>
+      </div>
+      <div class="fgrp"><label>Amount (Rs.) *</label><input id="f-amt" type="number" placeholder="Fee amount"></div>
+      <div class="fgrp"><label>Date</label><input id="f-dt" type="date"></div>
+      <div class="fgrp"><label>Note</label>
+        <select id="f-note"><option value="">—</option><option>Monthly Fees</option><option>Advance</option><option>Installment</option><option>Exam Fees</option><option>Transport</option></select>
+      </div>
+    </div>
+    <div style="margin-top:16px;"><button class="btn btn-p" onclick="addFee()">✅ Collect Fees</button></div>
+  </div>
+  <div class="shdr"><h3>Fee Records</h3>
+    <div class="sw"><input class="si-input" placeholder="Search student..." oninput="searchFees(this.value)"></div>
+  </div>
+  <div class="tw" style="margin-bottom:16px;"><table><thead><tr><th>#</th><th>Student</th><th>Class</th><th>Month</th><th>Amount</th><th>Date</th><th>Note</th><th>Action</th></tr></thead>
+  <tbody id="f-tb"><tr><td colspan="8"><div class="nd"><div class="nd-icon">💰</div>No fee records</div></td></tr></tbody></table></div>
+  <div class="shdr"><h3>Student-Wise Fee Status</h3></div>
+  <div class="tw"><table><thead><tr><th>#</th><th>Student</th><th>Class</th><th>Monthly Fees</th><th>Paid</th><th>Remaining</th><th>Status</th></tr></thead>
+  <tbody id="fs-tb"></tbody></table></div>
+</div>
+
+<!-- ══ ATTENDANCE ══ -->
+<div id="page-attendance" class="page">
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-title"><div class="acc"></div>Mark Attendance</div>
+    <div style="display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap;">
+      <div class="fgrp"><label>Date</label><input id="att-dt" type="date"></div>
+      <div class="fgrp"><label>Class</label><select id="att-cls" onchange="loadAtt()"><option value="">Select Class</option></select></div>
+      <button class="btn btn-p" onclick="saveAtt()">💾 Save Attendance</button>
+    </div>
+  </div>
+  <div id="att-area"><div class="card" style="text-align:center;padding:40px;color:var(--textd);"><div style="font-size:34px;margin-bottom:9px;">📋</div>Select date and class to mark attendance</div></div>
+</div>
+
+<!-- ══ CONTACTS ══ -->
+<div id="page-contacts" class="page">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+    <div class="card" style="margin-bottom:0;"><div class="card-title"><div class="acc"></div>📞 Teachers Contact</div><div id="tc-list"></div></div>
+    <div class="card" style="margin-bottom:0;"><div class="card-title"><div class="acc"></div>👨‍👩‍👦 Parents Contact</div><div id="sc-list"></div></div>
+  </div>
+  <div class="shdr"><h3>Full Contact Directory</h3>
+    <div class="sw"><input class="si-input" placeholder="Search name or number..." oninput="searchContacts(this.value)"></div>
+  </div>
+  <div class="tw"><table><thead><tr><th>#</th><th>Name</th><th>Type</th><th>Mobile</th><th>WhatsApp</th><th>Email</th><th>Address</th><th>Emergency</th></tr></thead>
+  <tbody id="ct-tb"></tbody></table></div>
+</div>
+
+<!-- ══ TIMETABLE ══ -->
+<div id="page-timetable" class="page">
+  <div class="card">
+    <div class="card-title"><div class="acc"></div>📅 Weekly School Timetable</div>
+    <div style="overflow-x:auto;">
+      <table class="tt">
+        <thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead>
+        <tbody>
+          <tr><td>8:00–8:45</td><td colspan="5" style="background:rgba(0,198,167,0.09);color:#2dd4bf;font-weight:700;">🕌 Quran / Morning Assembly</td></tr>
+          <tr><td>8:45–9:30</td>
+            <td><span class="subj" style="background:rgba(14,165,233,0.13);color:#67e8f9;">Mathematics</span></td>
+            <td><span class="subj" style="background:rgba(129,140,248,0.13);color:#a5b4fc;">Urdu</span></td>
+            <td><span class="subj" style="background:rgba(14,165,233,0.13);color:#67e8f9;">Mathematics</span></td>
+            <td><span class="subj" style="background:rgba(0,198,167,0.13);color:#2dd4bf;">English</span></td>
+            <td><span class="subj" style="background:rgba(14,165,233,0.13);color:#67e8f9;">Mathematics</span></td></tr>
+          <tr><td>9:30–10:15</td>
+            <td><span class="subj" style="background:rgba(0,198,167,0.13);color:#2dd4bf;">English</span></td>
+            <td><span class="subj" style="background:rgba(14,165,233,0.13);color:#67e8f9;">Science</span></td>
+            <td><span class="subj" style="background:rgba(129,140,248,0.13);color:#a5b4fc;">Urdu</span></td>
+            <td><span class="subj" style="background:rgba(14,165,233,0.13);color:#67e8f9;">Science</span></td>
+            <td><span class="subj" style="background:rgba(0,198,167,0.13);color:#2dd4bf;">English</span></td></tr>
+          <tr><td>10:15–10:30</td><td colspan="5" style="background:rgba(245,158,11,0.09);color:#fbbf24;font-weight:700;">☕ Break Time</td></tr>
+          <tr><td>10:30–11:15</td>
+            <td><span class="subj" style="background:rgba(129,140,248,0.13);color:#a5b4fc;">Urdu</span></td>
+            <td><span class="subj" style="background:rgba(0,198,167,0.13);color:#2dd4bf;">English</span></td>
+            <td><span class="subj" style="background:rgba(244,63,94,0.1);color:#fb7185;">Social Studies</span></td>
+            <td><span class="subj" style="background:rgba(129,140,248,0.13);color:#a5b4fc;">Urdu</span></td>
+            <td><span class="subj" style="background:rgba(245,158,11,0.13);color:#fbbf24;">Islamiyat</span></td></tr>
+          <tr><td>11:15–12:00</td>
+            <td><span class="subj" style="background:rgba(14,165,233,0.13);color:#67e8f9;">Science</span></td>
+            <td><span class="subj" style="background:rgba(245,158,11,0.13);color:#fbbf24;">Islamiyat</span></td>
+            <td><span class="subj" style="background:rgba(0,198,167,0.13);color:#2dd4bf;">English</span></td>
+            <td><span class="subj" style="background:rgba(14,165,233,0.13);color:#67e8f9;">Mathematics</span></td>
+            <td><span class="subj" style="background:rgba(0,198,167,0.13);color:#2dd4bf;">🕌 Jumma Prayer</span></td></tr>
+          <tr><td>12:00–12:45</td>
+            <td><span class="subj" style="background:rgba(244,63,94,0.1);color:#fb7185;">Social Studies</span></td>
+            <td><span class="subj" style="background:rgba(14,165,233,0.13);color:#67e8f9;">Computer</span></td>
+            <td><span class="subj" style="background:rgba(14,165,233,0.13);color:#67e8f9;">Mathematics</span></td>
+            <td><span class="subj" style="background:rgba(244,63,94,0.1);color:#fb7185;">Social Studies</span></td>
+            <td><span class="subj" style="background:rgba(14,165,233,0.13);color:#67e8f9;">Computer</span></td></tr>
+          <tr><td>12:45</td><td colspan="5" style="background:rgba(244,63,94,0.07);color:#fb7185;font-weight:700;">🏠 School Dismissed</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px;">
+    <div class="card-title"><div class="acc"></div>⏰ School Timings</div>
+    <div class="tgrid">
+      <div class="tbox"><div style="font-size:22px;">🕗</div><div style="font-weight:700;color:#2dd4bf;font-size:15px;margin-top:5px;">8:00 AM</div><div style="font-size:10.5px;color:var(--textd);margin-top:2px;">School Starts</div></div>
+      <div class="tbox"><div style="font-size:22px;">☕</div><div style="font-weight:700;color:#fbbf24;font-size:15px;margin-top:5px;">10:15 AM</div><div style="font-size:10.5px;color:var(--textd);margin-top:2px;">Break Time</div></div>
+      <div class="tbox"><div style="font-size:22px;">🕐</div><div style="font-weight:700;color:#67e8f9;font-size:15px;margin-top:5px;">12:45 PM</div><div style="font-size:10.5px;color:var(--textd);margin-top:2px;">School Ends</div></div>
+      <div class="tbox"><div style="font-size:22px;">📅</div><div style="font-weight:700;color:#fb7185;font-size:15px;margin-top:5px;">Sat – Sun</div><div style="font-size:10.5px;color:var(--textd);margin-top:2px;">Weekly Holiday</div></div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+<script>
+let students=JSON.parse(localStorage.getItem('sms_s')||'[]');
+let teachers=JSON.parse(localStorage.getItem('sms_t')||'[]');
+let classes=JSON.parse(localStorage.getItem('sms_c')||'[]');
+let fees=JSON.parse(localStorage.getItem('sms_f')||'[]');
+let att=JSON.parse(localStorage.getItem('sms_a')||'{}');
+
+function save(){
+  localStorage.setItem('sms_s',JSON.stringify(students));
+  localStorage.setItem('sms_t',JSON.stringify(teachers));
+  localStorage.setItem('sms_c',JSON.stringify(classes));
+  localStorage.setItem('sms_f',JSON.stringify(fees));
+  localStorage.setItem('sms_a',JSON.stringify(att));
+}
+
+/* NAV */
+function showPage(p,btn){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  if(btn)btn.classList.add('active');
+  ({
+    dashboard:updateDashboard,
+    classes:renderClasses,
+    teachers:()=>{chkLock('t-lock','t-form');fillSel('t-cls');renderTeachers();},
+    students:()=>{chkLock('s-lock','s-form');fillSel('s-cls');fillSel('s-flt',true);renderStudents();},
+    fees:()=>{fillFeeSel();renderFees();renderFeeStatus();},
+    attendance:()=>fillSel('att-cls'),
+    contacts:renderContacts,
+  }[p]||function(){})();
+}
+function navTo(p){const btns=document.querySelectorAll('nav button');showPage(p,btns[['dashboard','classes','teachers','students','fees','attendance','contacts','timetable'].indexOf(p)]);}
+
+/* LOCK */
+function chkLock(lk,fm){
+  document.getElementById(lk).style.display=classes.length?'none':'block';
+  document.getElementById(fm).style.display=classes.length?'block':'none';
+}
+
+/* ALERT */
+function alert2(id,msg,type='s'){
+  const e=document.getElementById(id);
+  e.className='alert alert-'+type;e.textContent=msg;e.style.display='block';
+  setTimeout(()=>e.style.display='none',3500);
+}
+
+/* HELPERS */
+function clrForm(ids){ids.forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});}
+function sel(id,v){const e=document.getElementById(id);if(e)e.value=v;}
+function clrTeacherForm(){
+  clrForm(['t-name','t-sal','t-dt','t-mob','t-wa','t-email','t-addr','t-en','t-em']);
+  ['t-sub','t-cls','t-qual','t-cc','t-wcc','t-ecc'].forEach(id=>sel(id,''));
+  sel('t-cc','+92');sel('t-wcc','+92');sel('t-ecc','+92');
+}
+function clrStudentForm(){
+  clrForm(['s-name','s-roll','s-dob','s-adt','s-fn','s-fm','s-fw','s-mn','s-mm','s-addr','s-fees','s-note']);
+  ['s-cls','s-gen'].forEach(id=>sel(id,''));
+  ['s-fcc','s-fwcc','s-mcc'].forEach(id=>sel(id,'+92'));
+}
+function fillSel(id,addAll=false){
+  const el=document.getElementById(id);if(!el)return;
+  const cur=el.value;
+  el.innerHTML=addAll?'<option value="">All Classes</option>':'<option value="">Select Class</option>';
+  classes.forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.name+(c.sec?' — '+c.sec:'');el.appendChild(o);});
+  if(cur)el.value=cur;
+}
+function fillFeeSel(){
+  const el=document.getElementById('f-stu');
+  el.innerHTML='<option value="">Select student</option>';
+  students.forEach(s=>{const o=document.createElement('option');const cl=classes.find(c=>c.id==s.cls);o.value=s.id;o.textContent=s.name+' ('+(cl?cl.name:'N/A')+')';el.appendChild(o);});
+  sel('f-mon',['January','February','March','April','May','June','July','August','September','October','November','December'][new Date().getMonth()]);
+  document.getElementById('f-dt').value=td();
+}
+function td(){return new Date().toISOString().split('T')[0];}
+function nd(icon,msg){return`<tr><td colspan="20"><div class="nd"><div class="nd-icon">${icon}</div>${msg}</div></td></tr>`;}
+function phone(cc,num){return num?(cc||'+92')+' '+num:'';}
+
+/* CLASSES */
+function addClass(){
+  const name=document.getElementById('c-name').value.trim();
+  if(!name){alert2('c-alert','Class name is required!','e');return;}
+  classes.push({id:Date.now(),name,sec:document.getElementById('c-section').value,room:document.getElementById('c-room').value,cap:document.getElementById('c-cap').value||0,fees:document.getElementById('c-fees').value||0,tId:''});
+  save();alert2('c-alert',`✅ "${name}" class added!`);
+  clrForm(['c-name','c-room','c-cap','c-fees']);sel('c-section','');
+  renderClasses();updateDashboardCounts();
+}
+function delClass(id){
+  if(!confirm('Delete this class?'))return;
+  classes=classes.filter(c=>c.id!=id);save();renderClasses();updateDashboardCounts();
+}
+function renderClasses(){
+  document.getElementById('c-cnt').textContent=classes.length;
+  const tb=document.getElementById('c-tb');
+  if(!classes.length){tb.innerHTML=nd('🏫','No classes — Add above');return;}
+  tb.innerHTML=classes.map((c,i)=>{
+    const tch=teachers.find(t=>t.id==c.tId);
+    const cnt=students.filter(s=>s.cls==c.id).length;
+    return`<tr><td style="color:var(--textd);font-size:11px;">${i+1}</td><td><strong>${c.name}</strong></td><td>${c.sec?`<span class="badge bb">${c.sec}</span>`:'—'}</td><td>${tch?tch.name:'<span style="color:var(--textd);font-size:11.5px;">Not assigned</span>'}</td><td style="color:var(--textm);font-size:12.5px;">${c.room||'—'}</td><td style="color:var(--textm);font-size:12.5px;">${c.cap||'—'}</td><td><span class="badge bg">${cnt}</span></td><td style="color:#fbbf24;font-weight:600;">Rs.${c.fees||0}</td><td><button class="btn btn-d btn-sm" onclick="delClass(${c.id})">🗑 Del</button></td></tr>`;
+  }).join('');
+}
+
+/* TEACHERS */
+function addTeacher(){
+  const name=document.getElementById('t-name').value.trim();
+  const sub=document.getElementById('t-sub').value;
+  const mob=document.getElementById('t-mob').value.trim();
+  if(!name){alert2('t-alert','Teacher name is required!','e');return;}
+  if(!sub){alert2('t-alert','Subject is required!','e');return;}
+  if(!mob){alert2('t-alert','Mobile number is required!','e');return;}
+  const cid=document.getElementById('t-cls').value;
+  const t={id:Date.now(),name,sub,cid,qual:document.getElementById('t-qual').value,sal:document.getElementById('t-sal').value||0,dt:document.getElementById('t-dt').value,
+    cc:document.getElementById('t-cc').value,mob,wcc:document.getElementById('t-wcc').value,wa:document.getElementById('t-wa').value,
+    email:document.getElementById('t-email').value,addr:document.getElementById('t-addr').value,
+    en:document.getElementById('t-en').value,ecc:document.getElementById('t-ecc').value,em:document.getElementById('t-em').value};
+  if(cid){const cl=classes.find(c=>c.id==cid);if(cl)cl.tId=t.id;}
+  teachers.push(t);save();alert2('t-alert',`✅ ${name} added successfully!`);
+  clrTeacherForm();renderTeachers();updateDashboardCounts();
+}
+function delTeacher(id){
+  if(!confirm('Delete this teacher?'))return;
+  teachers=teachers.filter(t=>t.id!=id);classes.forEach(c=>{if(c.tId==id)c.tId='';});
+  save();renderTeachers();updateDashboardCounts();
+}
+function renderTeachers(list){
+  const data=list||teachers;document.getElementById('t-cnt').textContent=data.length;
+  const tb=document.getElementById('t-tb');
+  if(!data.length){tb.innerHTML=nd('👨‍🏫','No teachers yet');return;}
+  tb.innerHTML=data.map((t,i)=>{
+    const cl=classes.find(c=>c.id==t.cid);
+    return`<tr><td style="color:var(--textd);font-size:11px;">${i+1}</td><td><strong>${t.name}</strong></td><td><span class="badge bv">${t.sub}</span></td><td>${cl?cl.name:'—'}</td><td><div style="font-size:12.5px;">📱 ${phone(t.cc,t.mob)}</div>${t.wa?`<div class="cmin">💬 ${phone(t.wcc,t.wa)}</div>`:''} ${t.email?`<div class="cmin">✉️ ${t.email}</div>`:''}</td><td>${t.qual?`<span class="badge bs">${t.qual}</span>`:'—'}</td><td style="color:#fbbf24;font-weight:600;">Rs.${t.sal||0}</td><td><button class="btn btn-d btn-sm" onclick="delTeacher(${t.id})">🗑 Del</button></td></tr>`;
+  }).join('');
+}
+function searchTeachers(q){renderTeachers(teachers.filter(t=>t.name.toLowerCase().includes(q.toLowerCase())||t.sub.toLowerCase().includes(q.toLowerCase())));}
+
+/* STUDENTS */
+function addStudent(){
+  const name=document.getElementById('s-name').value.trim();
+  const roll=document.getElementById('s-roll').value.trim();
+  const fn=document.getElementById('s-fn').value.trim();
+  const fm=document.getElementById('s-fm').value.trim();
+  if(!name||!roll){alert2('s-alert','Student name and roll number are required!','e');return;}
+  if(!fn||!fm){alert2('s-alert','Father name and mobile are required!','e');return;}
+  students.push({id:Date.now(),name,roll,cls:document.getElementById('s-cls').value,gen:document.getElementById('s-gen').value,dob:document.getElementById('s-dob').value,adt:document.getElementById('s-adt').value||td(),fn,fcc:document.getElementById('s-fcc').value,fm,fwcc:document.getElementById('s-fwcc').value,fw:document.getElementById('s-fw').value,mn:document.getElementById('s-mn').value,mcc:document.getElementById('s-mcc').value,mm:document.getElementById('s-mm').value,addr:document.getElementById('s-addr').value,fees:document.getElementById('s-fees').value||0,note:document.getElementById('s-note').value});
+  save();alert2('s-alert',`✅ ${name} enrolled successfully!`);clrStudentForm();renderStudents();updateDashboard();
+}
+function delStudent(id){
+  if(!confirm('Delete this student?'))return;
+  students=students.filter(s=>s.id!=id);save();renderStudents();updateDashboard();
+}
+function renderStudents(list){
+  const data=list||students;document.getElementById('s-cnt').textContent=data.length;
+  const tb=document.getElementById('s-tb');
+  if(!data.length){tb.innerHTML=nd('👨‍🎓','No students yet');return;}
+  tb.innerHTML=data.map((s,i)=>{
+    const cl=classes.find(c=>c.id==s.cls);
+    return`<tr><td style="color:var(--textd);font-size:11px;">${i+1}</td><td><strong>${s.name}</strong>${s.gen?`<div class="cmin">${s.gen}</div>`:''}</td><td><span class="badge bb">${s.roll}</span></td><td>${cl?`<span class="badge bg">${cl.name}${cl.sec?' '+cl.sec:''}</span>`:'<span class="badge bo">N/A</span>'}</td><td><div style="font-size:12.5px;font-weight:600;">${s.fn}</div><div class="cmin">📱 ${phone(s.fcc,s.fm)}</div>${s.fw?`<div class="cmin">💬 ${phone(s.fwcc,s.fw)}</div>`:''}${s.mn?`<div class="cmin">👩 ${s.mn}${s.mm?' — 📱 '+phone(s.mcc,s.mm):''}</div>`:''}</td><td style="color:#fbbf24;font-weight:600;">Rs.${s.fees||0}</td><td style="font-size:11.5px;color:var(--textd);">${s.note||'—'}</td><td><button class="btn btn-d btn-sm" onclick="delStudent(${s.id})">🗑 Del</button></td></tr>`;
+  }).join('');
+}
+function searchStudents(q){renderStudents(students.filter(s=>s.name.toLowerCase().includes(q.toLowerCase())||s.roll.includes(q)||(s.fn||'').toLowerCase().includes(q.toLowerCase())));}
+function filterStudents(cid){renderStudents(cid?students.filter(s=>s.cls==cid):students);}
+
+/* FEES */
+function addFee(){
+  const sid=document.getElementById('f-stu').value;const amt=document.getElementById('f-amt').value;
+  if(!sid||!amt){alert2('f-alert','Student and amount are required!','e');return;}
+  fees.push({id:Date.now(),sid,mon:document.getElementById('f-mon').value,amt:parseFloat(amt),dt:document.getElementById('f-dt').value||td(),note:document.getElementById('f-note').value});
+  save();const stu=students.find(s=>s.id==sid);alert2('f-alert',`✅ Rs.${amt} fee collected from ${stu.name}!`);
+  clrForm(['f-amt']);sel('f-note','');renderFees();renderFeeStatus();updateDashboardCounts();
+}
+function delFee(id){fees=fees.filter(f=>f.id!=id);save();renderFees();renderFeeStatus();updateDashboardCounts();}
+function renderFees(list){
+  const data=list||fees;const tb=document.getElementById('f-tb');
+  if(!data.length){tb.innerHTML=nd('💰','No fee records');return;}
+  tb.innerHTML=[...data].reverse().map((f,i)=>{
+    const stu=students.find(s=>s.id==f.sid);const cl=stu?classes.find(c=>c.id==stu.cls):null;
+    return`<tr><td style="color:var(--textd);font-size:11px;">${i+1}</td><td>${stu?stu.name:'N/A'}</td><td>${cl?cl.name:'—'}</td><td><span class="badge bb">${f.mon}</span></td><td style="color:#2dd4bf;font-weight:700;">Rs.${f.amt}</td><td style="color:var(--textm);font-size:11.5px;">${f.dt}</td><td style="font-size:11.5px;color:var(--textd);">${f.note||'—'}</td><td><button class="btn btn-d btn-sm" onclick="delFee(${f.id})">🗑</button></td></tr>`;
+  }).join('');
+}
+function renderFeeStatus(){
+  const tb=document.getElementById('fs-tb');
+  if(!students.length){tb.innerHTML=nd('👨‍🎓','No students');return;}
+  let tP=0,tB=0;
+  tb.innerHTML=students.map((s,i)=>{
+    const cl=classes.find(c=>c.id==s.cls);const mo=parseFloat(s.fees||0);
+    const paid=fees.filter(f=>f.sid==s.id).reduce((sum,f)=>sum+f.amt,0);
+    const baqi=Math.max(0,mo-paid);tP+=paid;tB+=baqi;
+    return`<tr><td style="color:var(--textd);font-size:11px;">${i+1}</td><td><strong>${s.name}</strong></td><td>${cl?cl.name:'—'}</td><td style="color:var(--textm);">Rs.${mo}</td><td style="color:#2dd4bf;font-weight:700;">Rs.${paid.toFixed(0)}</td><td style="color:#fb7185;font-weight:700;">Rs.${baqi.toFixed(0)}</td><td>${baqi<=0?'<span class="badge bg">✅ Clear</span>':'<span class="badge br">⚠️ Pending</span>'}</td></tr>`;
+  }).join('');
+  document.getElementById('f-pd').textContent='Rs.'+tP.toFixed(0);
+  document.getElementById('f-bq').textContent='Rs.'+tB.toFixed(0);
+  document.getElementById('f-tt').textContent='Rs.'+students.reduce((s,st)=>s+parseFloat(st.fees||0),0).toFixed(0);
+}
+function searchFees(q){renderFees(fees.filter(f=>{const s=students.find(st=>st.id==f.sid);return s&&s.name.toLowerCase().includes(q.toLowerCase());}));}
+
+/* ATTENDANCE */
+function loadAtt(){
+  const cid=document.getElementById('att-cls').value;const date=document.getElementById('att-dt').value;
+  if(!cid)return;
+  const cls=students.filter(s=>s.cls==cid);const key=`${cid}_${date}`;const saved=att[key]||{};
+  const area=document.getElementById('att-area');
+  if(!cls.length){area.innerHTML='<div class="card" style="text-align:center;padding:38px;color:var(--textd);">No students in this class</div>';return;}
+  const pCnt=cls.filter(s=>(saved[s.id]||'present')==='present').length;
+  const aCnt=cls.filter(s=>(saved[s.id]||'present')==='absent').length;
+  area.innerHTML=`<div class="card"><div class="card-title" style="justify-content:space-between;"><div style="display:flex;align-items:center;gap:8px;"><div class="acc"></div>${cls.length} Students</div><div style="display:flex;gap:14px;font-size:12.5px;"><span style="color:#2dd4bf;">✅ Present: ${pCnt}</span><span style="color:#fb7185;">❌ Absent: ${aCnt}</span></div></div><div class="att-grid">${cls.map(s=>{const st=saved[s.id]||'present';return`<div class="att-card ${st}" onclick="toggleAtt(${s.id},'${cid}','${date}')"><div class="att-icon">${st==='present'?'✅':'❌'}</div><h4>${s.name}</h4><p>Roll: ${s.roll}</p><div class="att-stat">${st==='present'?'Present':'Absent'}</div></div>`;}).join('')}</div></div>`;
+}
+function toggleAtt(sid,cid,date){
+  const key=`${cid}_${date}`;if(!att[key])att[key]={};
+  att[key][sid]=(att[key][sid]||'present')==='present'?'absent':'present';save();loadAtt();
+}
+function saveAtt(){
+  const cid=document.getElementById('att-cls').value;const date=document.getElementById('att-dt').value;
+  if(!cid||!date){alert('Select class and date!');return;}save();alert('✅ Attendance saved!');
+}
+
+/* CONTACTS */
+function renderContacts(list){
+  const tc=document.getElementById('tc-list');const sc=document.getElementById('sc-list');
+  tc.innerHTML=!teachers.length?'<div style="color:var(--textd);font-size:12.5px;">No teachers added</div>':teachers.map(t=>`<div style="padding:11px 0;border-bottom:1px solid var(--border);"><div style="font-weight:700;font-size:13.5px;">${t.name} <span class="badge bv">${t.sub}</span></div><div class="cmin">📱 ${phone(t.cc,t.mob)}${t.wa?' | 💬 '+phone(t.wcc,t.wa):''}</div>${t.email?`<div class="cmin">✉️ ${t.email}</div>`:''} ${t.addr?`<div class="cmin">🏠 ${t.addr}</div>`:''} ${t.en?`<div class="cmin" style="color:#fb7185;">🚨 ${t.en} — ${phone(t.ecc,t.em)}</div>`:''}</div>`).join('');
+  sc.innerHTML=!students.length?'<div style="color:var(--textd);font-size:12.5px;">No students added</div>':students.map(s=>{const cl=classes.find(c=>c.id==s.cls);return`<div style="padding:11px 0;border-bottom:1px solid var(--border);"><div style="font-weight:700;font-size:13.5px;">${s.name} ${cl?`<span class="badge bg">${cl.name}</span>`:''}</div><div class="cmin">👨 ${s.fn} — 📱 ${phone(s.fcc,s.fm)}${s.fw?' | 💬 '+phone(s.fwcc,s.fw):''}</div>${s.mn?`<div class="cmin">👩 ${s.mn}${s.mm?' — 📱 '+phone(s.mcc,s.mm):''}</div>`:''} ${s.addr?`<div class="cmin">🏠 ${s.addr}</div>`:''}</div>`;}).join('');
+  const all=list||[...teachers.map(t=>({n:t.name,q:'👨‍🏫 Teacher',m:phone(t.cc,t.mob),w:phone(t.wcc,t.wa)||'—',e:t.email||'—',p:t.addr||'—',emg:t.en?t.en+' '+phone(t.ecc,t.em):'—'})),...students.map(s=>({n:s.name+' (Father: '+s.fn+')',q:'👨‍🎓 Student',m:phone(s.fcc,s.fm),w:phone(s.fwcc,s.fw)||'—',e:'—',p:s.addr||'—',emg:s.mn?s.mn+(s.mm?' '+phone(s.mcc,s.mm):''):'—'}))];
+  const tb=document.getElementById('ct-tb');
+  if(!all.length){tb.innerHTML=nd('📞','No contacts yet');return;}
+  tb.innerHTML=all.map((c,i)=>`<tr><td style="color:var(--textd);font-size:11px;">${i+1}</td><td><strong>${c.n}</strong></td><td>${c.q}</td><td>📱 ${c.m}</td><td>${c.w!=='—'?'💬 '+c.w:'—'}</td><td>${c.e!=='—'?'✉️ '+c.e:'—'}</td><td style="font-size:11.5px;color:var(--textd);">${c.p}</td><td style="font-size:11.5px;color:#fb7185;">${c.emg}</td></tr>`).join('');
+}
+function searchContacts(q){
+  const all=[...teachers.map(t=>({n:t.name,q:'👨‍🏫 Teacher',m:phone(t.cc,t.mob),w:phone(t.wcc,t.wa)||'—',e:t.email||'—',p:t.addr||'—',emg:t.en||'—'})),...students.map(s=>({n:s.name+' (Father: '+s.fn+')',q:'👨‍🎓 Student',m:phone(s.fcc,s.fm),w:phone(s.fwcc,s.fw)||'—',e:'—',p:s.addr||'—',emg:s.mn||'—'}))].filter(c=>c.n.toLowerCase().includes(q.toLowerCase())||c.m.includes(q));
+  const tb=document.getElementById('ct-tb');
+  if(!all.length){tb.innerHTML=nd('📞','Not found');return;}
+  tb.innerHTML=all.map((c,i)=>`<tr><td style="color:var(--textd);font-size:11px;">${i+1}</td><td><strong>${c.n}</strong></td><td>${c.q}</td><td>${c.m}</td><td>${c.w}</td><td>${c.e}</td><td style="font-size:11.5px;">${c.p}</td><td style="font-size:11.5px;color:#fb7185;">${c.emg}</td></tr>`).join('');
+}
+
+/* DASHBOARD */
+function updateDashboardCounts(){
+  const paid=fees.reduce((s,f)=>s+f.amt,0);
+  const due=students.reduce((s,st)=>s+parseFloat(st.fees||0),0);
+  document.getElementById('d-cl').textContent=classes.length;
+  document.getElementById('d-tc').textContent=teachers.length;
+  document.getElementById('d-st').textContent=students.length;
+  document.getElementById('d-fp').textContent='Rs.'+paid.toFixed(0);
+  document.getElementById('d-fb').textContent='Rs.'+Math.max(0,due-paid).toFixed(0);
+  /* Quick report */
+  const defaulters=students.filter(s=>{const p=fees.filter(f=>f.sid==s.id).reduce((sum,f)=>sum+f.amt,0);return parseFloat(s.fees||0)-p>0;}).length;
+  document.getElementById('r-cls').textContent=classes.length;
+  document.getElementById('r-tch').textContent=teachers.length;
+  document.getElementById('r-stu').textContent=students.length;
+  document.getElementById('r-stu-f').textContent=defaulters;
+  document.getElementById('r-fees').textContent='Rs.'+paid.toFixed(0);
+  document.getElementById('r-fee-r').textContent='Rs.'+Math.max(0,due-paid).toFixed(0);
+  /* Legend */
+  document.getElementById('dl-cl').textContent=classes.length;
+  document.getElementById('dl-tc').textContent=teachers.length;
+  document.getElementById('dl-st').textContent=students.length;
+  document.getElementById('dl-fe').textContent=fees.length;
+}
+function updateDashboard(){
+  updateDashboardCounts();
+  /* Steps */
+  const done=[classes.length>0,teachers.length>0,students.length>0,fees.length>0];
+  ['s1','s2','s3','s4'].forEach((id,i)=>{
+    const isAct=!done[i]&&(i===0||done[i-1]);
+    document.getElementById(id+'c').className='sc '+(done[i]?'done':isAct?'act':'pend');
+    document.getElementById(id+'l').className='sl '+(done[i]?'done':isAct?'act':'pend');
+    document.getElementById(id+'c').textContent=done[i]?i+1:i+1;
+  });
+  /* Bar chart */
+  const ch=document.getElementById('dash-chart');
+  if(!classes.length){ch.innerHTML='<div style="color:var(--textd);font-size:12.5px;padding:16px 0;">Add classes to see chart</div>';}
+  else{
+    const max=Math.max(...classes.map(c=>students.filter(s=>s.cls==c.id).length),1);
+    ch.innerHTML=classes.slice(0,9).map(c=>{const cnt=students.filter(s=>s.cls==c.id).length;const h=Math.max(Math.round(cnt/max*100),5);return`<div class="bc"><div class="bv">${cnt}</div><div class="bb2" style="height:${h}px;"></div><div class="bl">${c.name.substring(0,7)}</div></div>`;}).join('');
+  }
+  /* Recent students */
+  const rec=document.getElementById('dash-recent');
+  const recent=[...students].slice(-6).reverse();
+  rec.innerHTML=!recent.length?'<div style="color:var(--textd);font-size:12.5px;padding:10px 0;">No students enrolled yet</div>':recent.map(s=>{const cl=classes.find(c=>c.id==s.cls);return`<div class="rec-item"><div><div style="font-size:13.5px;font-weight:700;">${s.name}</div><div class="cmin">${s.fn} | ${cl?cl.name:'N/A'}</div></div><span class="badge bg">New</span></div>`;}).join('');
+  /* Donut chart */
+  updateDonut();
+}
+function updateDonut(){
+  const total=classes.length+teachers.length+students.length+fees.length;
+  document.getElementById('donut-center-val').textContent=total;
+  if(!total)return;
+  const circ=2*Math.PI*60;// 377
+  const vals=[classes.length,teachers.length,students.length,fees.length];
+  const colors=['d-classes-arc','d-teachers-arc','d-students-arc','d-fees-arc'];
+  let offset=0;
+  vals.forEach((v,i)=>{
+    const arc=document.getElementById(colors[i]);
+    const pct=total?v/total:0;
+    const dash=pct*circ;
+    arc.setAttribute('stroke-dasharray',`${dash} ${circ}`);
+    arc.setAttribute('stroke-dashoffset',-offset);
+    offset+=dash;
+  });
+}
+
+/* INIT */
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('att-dt').value=td();
+  // set default country code
+  ['t-cc','t-wcc','t-ecc','s-fcc','s-fwcc','s-mcc'].forEach(id=>sel(id,'+92'));
+  updateDashboard();
+});
+</script>
+</body>
+</html>
